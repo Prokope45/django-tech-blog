@@ -1,0 +1,46 @@
+body {
+background-color: #fdfdfd;
+}
+.shadow {
+   box-shadow: 0 4px 2px -2px rgba(0,0,0,0.1);
+}
+.btn-danger {
+color: #fff;
+background-color: #f00000;
+border-color: #dc281e;
+}
+.g-recaptcha {
+    padding: 25px;
+}
+.navbar {
+background: #0b3954;
+}
+.nav-link,
+.navbar-brand {
+color: #fff;
+cursor: pointer;
+font-size: 25px;
+}
+.nav-link {
+margin-right: 1em !important;
+}
+.nav-link:hover {
+color: #539987;
+}
+.navbar-collapse {
+justify-content: flex-end;
+}
+.header {
+background-size: cover;
+background-position: center;
+position: relative;
+}
+.page-footer {
+    background-color: #222;
+    color: #ccc;
+    padding: 60px 0 30px;
+}
+.footer-copyright {
+    color: #666;
+    padding: 40px 0;
+}
