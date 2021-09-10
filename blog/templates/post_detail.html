@@ -1,18 +1,18 @@
-{% extends 'base.html' %} {% block content %}
-
-
+{% extends 'base.html' %}
+{% block content %}
+{% include 'navbar.html' %}
 <div class="container">
-  <a href="https://prokope45.pythonanywhere.com" class="btn btn-primary btn-md active"
-     role="button" aria-pressed="true">Back</a>
   <div class="row">
-    <div class="col-md-8 card mb-4  mt-3 left  top">
+    <div class="col-md-12 card mb-4  mt-3 left  top">
       <div class="card-body">
         <h1>{% block title %} {{ object.title }} {% endblock title %}</h1>
         <p class=" text-muted">{{ post.author }} | {{ post.created_on }}</p>
+        <img class="mx-auto d-block" src="{{ post.thumb.url }}"/>
         <p class="card-text ">{{ object.content | safe }}</p>
+        <a href="{% url 'blog' %}" class="btn btn-primary btn-md active" role="button" aria-pressed="true">Back</a>
       </div>
     </div>
   </div>
 </div>
-
+{% include 'footer.html' %}
 {% endblock content %}

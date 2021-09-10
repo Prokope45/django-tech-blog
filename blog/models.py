@@ -15,9 +15,20 @@ class Post(models.Model):
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
+    thumb = models.ImageField(default='default.png', blank=True)
 
     class Meta:
         ordering = ['-created_on']
 
     def __str__(self):
         return self.title
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=255, default='')
+    email = models.EmailField()
+    subject = models.CharField(max_length=255)
+    message = models.TextField()
+
+    def __str__(self):
+        return self.email
