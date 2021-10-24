@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% include 'navbar.html' %}
+<div id='content'>
     <div class="container">
             <div class="row">
           <div class="col-md-12 mt-3 left">
@@ -11,13 +12,13 @@
                 <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
 
                 <p class="card-text">{{post.content | safe | slice:":200" }}...</p>
-                <a href="{% url 'post_detail' post.slug  %}" class="btn btn-primary btn-md active">Read More &rarr;</a>
+                <a href="{% url 'post_detail' post.slug  %}" class="btn btn-md btn-primary arrow arrow-right">Read More</a>
               </div>
-
             </div>
             {% endfor %}
         </div>
         </div>
     </div>
+</div>
 {% include 'footer.html' %}
 {%endblock%}
