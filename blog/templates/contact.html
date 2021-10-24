@@ -7,45 +7,46 @@
 
 {% include 'messages.html' %}
 
-<div id="Form-Body" class="container p-4 my-4">
-    <form id="contactForm" method="POST">
-        {% csrf_token %}
-        <div class="mb-1">
-            <h2>Contact Me</h2>
-        </div>
+    <div id="Form-Body" class="container p-4 my-4">
+        <form id="contactForm" method="POST">
+            {% csrf_token %}
+            <div class="mb-1">
+                <h2>Contact Me</h2>
+            </div>
 
-        <div class="mb-1">
-            <i class="fa fa-user prefix grey-text"></i>
-                {{ form.name | as_crispy_field }}
-        </div>
+            <div class="mb-1">
+                <i class="fa fa-user prefix grey-text"></i>
+                    {{ form.name | as_crispy_field }}
+            </div>
 
-        <div class="mb-1">
-            <i class="fa fa-envelope prefix grey-text"></i>
-                {{ form.email | as_crispy_field }}
-        </div>
+            <div class="mb-1">
+                <i class="fa fa-envelope prefix grey-text"></i>
+                    {{ form.email | as_crispy_field }}
+            </div>
 
-        <div class="mb-1">
-            <i class="fa fa-tag prefix grey-text"></i>
-                {{ form.subject | as_crispy_field }}
-        </div>
+            <div class="mb-1">
+                <i class="fa fa-tag prefix grey-text"></i>
+                    {{ form.subject | as_crispy_field }}
+            </div>
 
-        <div class="mb-1">
-             <i class="fa fa-pencil prefix grey-text"></i>
-                {{ form.message | as_crispy_field }}
-        </div>
+            <div class="mb-1">
+                 <i class="fa fa-pencil prefix grey-text"></i>
+                    {{ form.message | as_crispy_field }}
+            </div>
 
-        <div class="mb-1">
-            <div class="h-captcha text-center" data-sitekey="2f320587-7366-4af2-a556-a734f4e26795"></div>
-            {% for message in form.captcha.errors %}
-            <div class="notification is-danger">{{ message }}</div>
-            {% endfor %}
-        </div>
+            <div class="mb-1">
+                <div class="h-captcha text-center" data-sitekey="2f320587-7366-4af2-a556-a734f4e26795"></div>
+                {% for message in form.captcha.errors %}
+                <div class="notification is-danger">{{ message }}</div>
+                {% endfor %}
+            </div>
 
-        <div class="d-grid text-center">
-          <button class="btn btn-primary btn-lg active" type="submit">Submit <i class="fa fa-paper-plane-o ml-1"></i></button>
-        </div>
-      </form>
+            <div class="d-grid text-center">
+              <button class="btn btn-lg btn-primary arrow arrow-right arrow-paper-plane" type="submit">Send</button>
+            </div>
+         </form>
     </div>
+
 
     {% include 'footer.html' %}
 </body>
