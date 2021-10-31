@@ -1,0 +1,121 @@
+body {
+    padding: 0;
+    margin: 0;
+    background: #d8dee9;
+}
+img {
+    max-width: 100%;
+    height: auto;
+    box-shadow: 10px 10px 10px 3px black; 
+}
+.navbar {
+    background: #3b4252;
+}
+.nav-link,
+.navbar-brand {
+    color: #fff;
+    cursor: pointer;
+    font-size: 25px;
+}
+.nav-link {
+    margin-right: 1em !important;
+}
+.nav-link:hover {
+    color: #539987;
+}
+.navbar-collapse {
+    justify-content: flex-end;
+}
+.header {
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    box-shadow: 5px 5px 5px gray;
+}
+.overlay {
+    position: absolute;
+    min-height: 100%;
+    min-width: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.6);
+}
+.description {
+	left: 50%;
+	position: absolute;
+	top: 45%;
+	transform: translate(-50%, -55%);
+	text-align: center;
+}
+.description h1 {
+	color: #FFFFFF;
+    padding: 10px;
+}
+.description p {
+	color: #fff;
+	font-size: 1.5rem;
+	line-height: 1.5;
+}
+.description button {
+    border:1px solid #fff;
+    background:#0b3954;
+    border-radius: 5;
+    color:#fff;
+}
+.description button:hover {
+	border:1px solid #fff;
+    background:#fff;
+    color:#000;
+}
+.project {
+    margin: 1em;
+    font-size: 2.5em;
+}
+.features {
+	margin: 4em auto;
+	padding: 1em;
+	position: relative;
+}
+.feature-title {
+	color: #333;
+	font-size: 1.3rem;
+	font-weight: 700;
+	margin-bottom: 20px;
+	text-transform: uppercase;
+}
+.page-footer {
+    background-color: #2e3440;
+    color: #d8dee9;
+    padding: 60px 0 30px;
+}
+.footer-copyright {
+    color: #d8dee9;
+    padding: 40px 0;
+}
+
+/*Mobile-first responsive */
+@media (max-width: 575.98px) {
+    .description {
+        left: 0;
+        padding: 0 15px;
+        position: absolute;
+        top: 5%;
+        transform: none;
+        text-align: center;
+    }
+ 
+    .description h1 {
+        font-size: 2em;
+    }
+ 
+    .description p {
+        font-size: 1.2rem;
+    }
+ 
+    .features {
+        margin: 0;
+    }
+    #contact {
+        width: auto;
+    }
+}
