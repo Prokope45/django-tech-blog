@@ -67,6 +67,9 @@ img {
     background:#fff;
     color:#000;
 }
+#contact {
+    margin: 10px;
+}
 .project {
     margin: 1em;
     font-size: 2.5em;
@@ -114,8 +117,5 @@ img {
  
     .features {
         margin: 0;
-    }
-    #contact {
-        width: auto;
     }
 }
