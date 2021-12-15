@@ -1,7 +1,8 @@
 @import "colors/color.css";
 @import "navbar/navbar.css";
 @import "footer/footer.css";
-@import "buttons_links/buttons_links.css";
+@import "buttons/buttons.css";
+@import "links/links.css";
 @import "blog/blog.css";
 @import "contact/contact.css";
 
