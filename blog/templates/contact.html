@@ -14,23 +14,35 @@
                 <h2>Contact Me</h2>
             </div>
 
-            <i class="fa fa-user"></i>
             <div class="mb-1">
+                <div class="d-flex flex-row">
+                    <i class="mr-2 fa fa-user"></i>
+                    Name
+                </div>
                 {{ form.name | as_crispy_field }}
             </div>
 
-            <i class="fa fa-envelope"></i>
             <div class="mb-1">
+                <div class="d-flex flex-row">
+                    <i class="mr-2 fa fa-envelope"></i>
+                    Email
+                </div>
                 {{ form.email | as_crispy_field }}
             </div>
 
-            <i class="fa fa-tag"></i>
             <div class="mb-1">
+                <div class="d-flex flex-row">
+                    <i class="mr-2 fa fa-tag"></i>
+                    Subject
+                </div>
                 {{ form.subject | as_crispy_field }}
             </div>
 
-            <i class="fa fa-pencil"></i>
             <div class="mb-1">
+                <div class="d-flex flex-row">
+                    <i class="mr-2 fa fa-pencil"></i>
+                    Message
+                </div>
                 {{ form.message | as_crispy_field }}
             </div>
 
@@ -42,7 +54,9 @@
             </div>
 
             <div class="d-grid text-center">
-              <button class="btn btn-lg btn-primary arrow-paper-plane" type="submit">Send</button>
+              <button class="btn btn-lg btn-primary" type="submit">
+                  <i class="mr-2 fa fa-paper-plane"></i>Send
+              </button>
             </div>
          </form>
     </div>
