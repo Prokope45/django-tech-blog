@@ -1,0 +1,13 @@
+#button-1 {
+  width: 150px;
+  height: 50px;
+  border: none;
+  border-bottom: 2px white solid;
+  margin-left: 100px;
+  margin-top: 20px;
+  transition: .5s all;
+}
+#button-1:hover i {
+  animation-name: circle;
+  animation-duration: 1s;
+}

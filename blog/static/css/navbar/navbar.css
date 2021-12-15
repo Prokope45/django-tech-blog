@@ -1,0 +1,22 @@
+#container {
+   min-height:100%;
+   position: relative;
+}
+.navbar {
+background: var(--prussian-blue);
+}
+.nav-link,
+.navbar-brand {
+color: #fff;
+cursor: pointer;
+font-size: 25px;
+}
+.nav-link {
+margin-right: 1em !important;
+}
+.nav-link:hover {
+color: #539987;
+}
+.navbar-collapse {
+justify-content: flex-end;
+}

@@ -1,0 +1,22 @@
+.btn-primary {
+color: var(--alice-blue)  !important;
+background-color: var(--blue-sapphire) !important;
+border-color: #81a1c1 !important;
+}
+a:link {
+  color: var(--persian-green);
+  background-color: transparent;
+  text-decoration: none;
+}
+a:visited {
+    color: var(--caribbean-green);
+    background-color: transparent;
+}
+a:hover {
+    color: var(--skobeloff);
+    background-color: transparent;
+}
+a:active {
+    color: #6666FF;
+    background-color: transparent;
+}
