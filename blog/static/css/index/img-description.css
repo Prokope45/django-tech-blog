@@ -47,7 +47,16 @@ banner-img {
 .contact-button {
     margin: 10px;
 }
-
-.linkedin {
-    background-color: #0082ca;
+.github {
+    background-color: #333333 !important;
 }
+.stack-overflow {
+    background-color: #ffac44 !important;
+}
+.slack {
+    background-color: #481449 !important;
+}
+.linkedin {
+    background-color: #0082ca !important;
+}
+
