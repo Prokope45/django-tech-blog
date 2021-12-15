@@ -1,4 +1,4 @@
-#button-1 {
+.arrow {
   width: 150px;
   height: 50px;
   border: none;
@@ -7,7 +7,7 @@
   margin-top: 20px;
   transition: .5s all;
 }
-#button-1:hover i {
+.arrow:hover i {
   animation-name: circle;
   animation-duration: 1s;
 }

@@ -20,4 +20,10 @@ class ContactForm(ModelForm):
 
     class Meta:
         model = Contact
-        fields = '__all__'
+        fields = ['name', 'email', 'subject', 'message']
+        labels = {
+            'name': '',
+            'email': '',
+            'subject': '',
+            'message': '',
+        }
