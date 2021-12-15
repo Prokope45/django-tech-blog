@@ -1,0 +1,16 @@
+#bottom {
+   position: relative;
+   bottom:0;
+   width:100%;
+   height:60px;
+   background:#6cf;
+}
+.page-footer {
+    background-color: var(--gunmetal);
+    color: #d8dee9;
+    padding: 60px 0 30px;
+}
+.footer-copyright {
+    color: #d8dee9;
+    padding: 40px 0;
+}

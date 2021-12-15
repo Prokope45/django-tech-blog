@@ -1,0 +1,17 @@
+#bg{
+    background-size: 2000px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+#Form-Body {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 0 10px 3px Black;
+}
+.shadow {
+   box-shadow: 0 4px 2px -2px rgba(0,0,0,0.1);
+}
+.asteriskField {
+    display: none;
+}

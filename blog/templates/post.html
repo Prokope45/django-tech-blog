@@ -12,7 +12,11 @@
                 <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
 
                 <p class="card-text">{{post.content | safe | slice:":200" }}...</p>
-                <a href="{% url 'post_detail' post.slug  %}" class="btn btn-md btn-primary arrow arrow-right">Read More</a>
+                <a href="{% url 'post_detail' post.slug  %}">
+                   <button class="btn btn-md btn-primary">
+                      Read More <i class="fa fa-angle-double-right"></i>
+                   </button>
+                </a>
               </div>
             </div>
             {% endfor %}
