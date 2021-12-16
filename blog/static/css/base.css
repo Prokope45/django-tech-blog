@@ -5,9 +5,9 @@
 @import "links/links.css";
 @import "blog/blog.css";
 @import "contact/contact.css";
-@import "arrow.css";
 @import "media_queries.css";
 @import "index/control.css";
+@import "gallery/gallery.css";
 
 html {
     height: 100%;
