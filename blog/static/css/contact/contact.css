@@ -1,8 +1,9 @@
+@import "../colors/color.css";
+
 #bg{
-    background-size: 2000px;
+    background-size: 1800px;
     background-repeat: no-repeat;
     background-position: center;
-    background-attachment: fixed;
 }
 #Form-Body {
     background-color: white;
@@ -14,4 +15,7 @@
 }
 .asteriskField {
     display: none;
+}
+.contact-icon {
+    color: var(--blue-sapphire);
 }

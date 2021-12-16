@@ -1,0 +1,17 @@
+a:link {
+  color: var(--alice-blue);
+  background-color: transparent;
+  text-decoration: none;
+}
+a:visited {
+    color: var(--cultured);
+    background-color: transparent;
+}
+a:hover {
+    color: var(--blue-sapphire);
+    background-color: transparent;
+}
+a:active {
+    color: #6666FF;
+    background-color: transparent;
+}

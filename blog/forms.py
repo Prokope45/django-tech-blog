@@ -11,7 +11,7 @@ from .models import Contact
 def validate_captcha(value):
     data = {'secret': settings.HCAPTCHA_SECRET, 'response': value}
     response = requests.post(settings.VERIFY_URL, data)
-    if not 'success' in response.json() or not response.json()['success']:
+    if 'success' not in response.json() or not response.json()['success']:
         raise ValidationError('hcaptcha is not correct')
 
 
@@ -20,4 +20,10 @@ class ContactForm(ModelForm):
 
     class Meta:
         model = Contact
-        fields = '__all__'
+        fields = ['name', 'email', 'subject', 'message']
+        labels = {
+            'name': '',
+            'email': '',
+            'subject': '',
+            'message': '',
+        }

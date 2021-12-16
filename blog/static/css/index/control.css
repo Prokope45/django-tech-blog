@@ -1,4 +1,7 @@
 @import "./media_queries.css";
-@import "./project_feature.css";
+@import "./project.css";
+@import "./feature.css";
 @import "./animation.css";
-@import "./img-description.css";
+@import "./banner-image.css";
+@import "./description.css";
+@import "./contact-buttons.css";
