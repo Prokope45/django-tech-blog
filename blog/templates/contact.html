@@ -10,28 +10,40 @@
     <div id="Form-Body" class="container p-4 my-4">
         <form id="contactForm" method="POST">
             {% csrf_token %}
-            <div class="mb-1">
+            <div class="mb-1 text-center">
                 <h2>Contact Me</h2>
             </div>
 
             <div class="mb-1">
-                <i class="fa fa-user prefix grey-text"></i>
-                    {{ form.name | as_crispy_field }}
+                <div class="d-flex flex-row">
+                    <i class="mr-2 fa fa-user contact-icon"></i>
+                    Name
+                </div>
+                {{ form.name | as_crispy_field }}
             </div>
 
             <div class="mb-1">
-                <i class="fa fa-envelope prefix grey-text"></i>
-                    {{ form.email | as_crispy_field }}
+                <div class="d-flex flex-row">
+                    <i class="mr-2 fa fa-envelope contact-icon"></i>
+                    Email
+                </div>
+                {{ form.email | as_crispy_field }}
             </div>
 
             <div class="mb-1">
-                <i class="fa fa-tag prefix grey-text"></i>
-                    {{ form.subject | as_crispy_field }}
+                <div class="d-flex flex-row">
+                    <i class="mr-2 fa fa-tag contact-icon"></i>
+                    Subject
+                </div>
+                {{ form.subject | as_crispy_field }}
             </div>
 
             <div class="mb-1">
-                 <i class="fa fa-pencil prefix grey-text"></i>
-                    {{ form.message | as_crispy_field }}
+                <div class="d-flex flex-row">
+                    <i class="mr-2 fa fa-pencil contact-icon"></i>
+                    Message
+                </div>
+                {{ form.message | as_crispy_field }}
             </div>
 
             <div class="mb-1">
@@ -42,7 +54,9 @@
             </div>
 
             <div class="d-grid text-center">
-              <button class="btn btn-lg btn-primary arrow arrow-right arrow-paper-plane" type="submit">Send</button>
+              <button class="btn btn-lg btn-primary" type="submit">
+                  <i class="mr-2 fa fa-paper-plane"></i>Send
+              </button>
             </div>
          </form>
     </div>
