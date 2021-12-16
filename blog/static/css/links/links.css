@@ -1,14 +1,14 @@
 a:link {
-  color: var(--persian-green);
+  color: var(--alice-blue);
   background-color: transparent;
   text-decoration: none;
 }
 a:visited {
-    color: var(--caribbean-green);
+    color: var(--cultured);
     background-color: transparent;
 }
 a:hover {
-    color: var(--skobeloff);
+    color: var(--blue-sapphire);
     background-color: transparent;
 }
 a:active {

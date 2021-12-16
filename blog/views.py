@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.views import generic
 from .models import Post
 from .forms import ContactForm
+from django.views.generic.base import TemplateView
 
 
 class PostList(generic.ListView):
@@ -15,6 +16,10 @@ class PostList(generic.ListView):
 class PostDetail(generic.DetailView):
     model = Post
     template_name = 'post_detail.html'
+
+
+def gallery_view(request):
+    return render(request, 'gallery.html')
 
 
 def contact_view(request):
