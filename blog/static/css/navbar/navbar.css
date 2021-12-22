@@ -3,20 +3,20 @@
    position: relative;
 }
 .navbar {
-background: var(--prussian-blue);
+    background: var(--prussian-blue);
 }
 .nav-link,
 .navbar-brand {
-color: #fff;
-cursor: pointer;
-font-size: 25px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 25px;
 }
 .nav-link {
-margin-right: 1em !important;
+    margin-right: 1em !important;
 }
 .nav-link:hover {
-color: #539987;
+    color: #539987;
 }
 .navbar-collapse {
-justify-content: flex-end;
+    justify-content: flex-end;
 }
