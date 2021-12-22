@@ -8,6 +8,14 @@ from .forms import ContactForm
 from django.views.generic.base import TemplateView
 
 
+def index_view(request):
+    return render(request, 'index.html')
+
+
+def portfolio_view(request):
+    return render(request, 'portfolio.html')
+
+
 class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1).order_by('-created_on')
     template_name = 'post.html'
