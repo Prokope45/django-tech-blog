@@ -4,9 +4,7 @@
 {% block contact %}
 <body id="bg" style="background-image: url('{% static 'img/background.png' %}');">
 {% include 'navbar.html' %}
-
 {% include 'messages.html' %}
-
     <div id="Form-Body" class="container p-4 my-4">
         <form id="contactForm" method="POST">
             {% csrf_token %}
@@ -60,8 +58,6 @@
             </div>
          </form>
     </div>
-
-
     {% include 'footer.html' %}
 </body>
 {% endblock contact %}

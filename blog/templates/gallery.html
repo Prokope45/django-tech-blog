@@ -4,8 +4,30 @@
     <body>
         {% include 'navbar.html' %}
         <div id='content'>
-            <h1 class="text-center">Gallery Coming Soon!</h1>
+            <div class="container">
+              {% for photo in photo_list %}
+              <h1>{{photo.title}}</h1>
+              <p>{{photo.content}}</p>
+
+              <!--Gallery-->
+              <div class="row">
+                {% for photo in post.gallery.sample %}
+                <a
+                  class="align-self-center"
+                  title="{{ photo.title }}"
+                  href="{{ photo.get_display_url }}"
+                  data-lightbox="gallery-example"
+                  max-height="150px"
+                >
+                  <img src="{{ photo.get_thumbnail_url }}" />
+                </a>
+                {% endfor %}
+              </div>
+              {% endfor %}
+            </div>
         </div>
         {% include 'footer.html' %}
     </body>
+
+
 {% endblock gallery %}

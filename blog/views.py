@@ -3,9 +3,9 @@ from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import generic
-from .models import Post
+
 from .forms import ContactForm
-from django.views.generic.base import TemplateView
+from .models import Post, Image
 
 
 def index_view(request):
@@ -27,7 +27,10 @@ class PostDetail(generic.DetailView):
 
 
 def gallery_view(request):
-    return render(request, 'gallery.html')
+    photo_list = Image.objects.all()
+    context = {}
+    context['photo_list'] = photo_list
+    return render(request, 'gallery.html', context)
 
 
 def contact_view(request):
