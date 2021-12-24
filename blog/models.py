@@ -32,16 +32,9 @@ class Post(models.Model):
 class Image(models.Model):
     gallery = models.ForeignKey(Gallery, on_delete=models.SET_NULL, null=True)
 
-    image = models.ForeignKey(
-        'photologue.Photo',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='phogo_gallery'
-    )
-
     title = models.CharField(max_length=199)
     content = models.TextField()
+
     slug = models.SlugField(max_length=250, allow_unicode=True, blank=True)
 
     def __str__(self):

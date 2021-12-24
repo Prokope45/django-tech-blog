@@ -5,25 +5,19 @@
         {% include 'navbar.html' %}
         <div id='content'>
             <div class="container">
-              {% for photo in photo_list %}
-              <h1>{{photo.title}}</h1>
-              <p>{{photo.content}}</p>
+            {% for image in image_list %}
+                <h1>{{image.title}}</h1>
+                <p>{{image.content}}</p>
 
-              <!--Gallery-->
-              <div class="row">
-                {% for photo in post.gallery.sample %}
-                <a
-                  class="align-self-center"
-                  title="{{ photo.title }}"
-                  href="{{ photo.get_display_url }}"
-                  data-lightbox="gallery-example"
-                  max-height="150px"
-                >
-                  <img src="{{ photo.get_thumbnail_url }}" />
-                </a>
+                <!--Gallery-->
+                <div class="row">
+                {% for photo in image.gallery.sample %}
+                    <a class="align-self-center" title="{{ photo.title }}" href="{{ photo.get_display_url }}" data-lightbox="gallery-example" max-height="150px">
+                        <img src="{{ photo.get_thumbnail_url }}" >
+                    </a>
                 {% endfor %}
-              </div>
-              {% endfor %}
+                </div>
+            {% endfor %}
             </div>
         </div>
         {% include 'footer.html' %}
