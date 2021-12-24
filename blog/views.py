@@ -27,9 +27,9 @@ class PostDetail(generic.DetailView):
 
 
 def gallery_view(request):
-    photo_list = Image.objects.all()
-    context = {}
-    context['photo_list'] = photo_list
+    image_list = Image.objects.all()
+    context = {'image_list': image_list}
+    print(context)
     return render(request, 'gallery.html', context)
 
 
