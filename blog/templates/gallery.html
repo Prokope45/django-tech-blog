@@ -3,23 +3,23 @@
 {% block gallery %}
     <body>
         {% include 'navbar.html' %}
-        <div id='content'>
-            <h1 class="text-center">Travel Gallery</h1>
+        <div id='content' class="m-5">
             <div class="container">
-            {% for image in image_list %}
+                <h1 class="text-center">Travel Gallery</h1>
+                {% for image in image_list %}
+                    <h2>{{image.title}}</h2>
+                    <p>{{image.content}}</p>
 
-                <h2>{{image.title}}</h2>
-                <p>{{image.content}}</p>
-
-                <!--Gallery-->
-                <div class="row">
-                {% for photo in image.gallery.sample %}
-                    <a class="align-self-center" title="{{ photo.title }}" href="{{ photo.get_display_url }}" data-lightbox="gallery-example" max-height="150px">
-                        <img src="{{ photo.get_thumbnail_url }}" >
-                    </a>
+                    <!--Gallery-->
+                    <div class="row m-4">
+                    {% for photo in image.gallery.sample %}
+                        <a class="align-self-center" title="{{ photo.title }}" href="{{ photo.get_display_url }}" data-lightbox="gallery-example" max-height="150px">
+                            <img src="{{ photo.get_thumbnail_url }}">
+                        </a>
+                    {% endfor %}
+                    </div>
+                    <hr>
                 {% endfor %}
-                </div>
-            {% endfor %}
             </div>
         </div>
         {% include 'footer.html' %}
