@@ -1,9 +1,11 @@
 @import "../colors/color.css";
-/* FIXME background is not formatted correctly.*/
+
 #bg{
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    min-height: 100%;
+    width: 100%;
+    height: auto;
+    top: 0;
+    left: 0;
 }
 #Form-Body {
     background-color: white;
@@ -18,4 +20,10 @@
 }
 .contact-icon {
     color: var(--blue-sapphire);
+}
+@media screen and (max-width: 1024px) {
+  #bg {
+    left: 50%;
+    margin-left: -512px;
+  }
 }

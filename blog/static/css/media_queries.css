@@ -11,16 +11,3 @@
 #Form-Body {
     width:50%;
 }}
-
-@media (min-width: 0px) {
-img {
-    width:85%;
-}}
-@media (min-width: 992px) {
-img {
-    width:40%;
-}}
-@media (min-width: 1200px) {
-img {
-    width:50%;
-}}
