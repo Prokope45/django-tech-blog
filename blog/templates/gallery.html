@@ -4,9 +4,11 @@
     <body>
         {% include 'navbar.html' %}
         <div id='content'>
+            <h1 class="text-center">Travel Gallery</h1>
             <div class="container">
             {% for image in image_list %}
-                <h1>{{image.title}}</h1>
+
+                <h2>{{image.title}}</h2>
                 <p>{{image.content}}</p>
 
                 <!--Gallery-->
