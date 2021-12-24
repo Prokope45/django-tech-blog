@@ -21,27 +21,11 @@ body {
 .head_text {
     color: white;
 }
-img {
-    box-shadow: 10px 10px 5px #E3E7EB;
-    border-radius: 16px;
-    border: 1px #E3E7EB;
-    height: auto;
-}
+
 #content {
    padding-bottom:60px;
 }
-.photo_gallery {
-    display: flex;
+#container {
+   min-height:100%;
+   position: relative;
 }
-
-.photo_gallery a {
-        display: inline-block;
-        height: 300px;
-    }
-
-.photo_gallery img {
-        object-position: center;
-        object-fit: cover;
-        height: 100%;
-        width: 100%;
-    }
