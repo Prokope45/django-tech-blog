@@ -6,6 +6,7 @@
     height: auto;
     top: 0;
     left: 0;
+    background-position: center;
 }
 #Form-Body {
     background-color: white;
@@ -20,10 +21,4 @@
 }
 .contact-icon {
     color: var(--blue-sapphire);
-}
-@media screen and (max-width: 1024px) {
-  #bg {
-    left: 50%;
-    margin-left: -512px;
-  }
 }

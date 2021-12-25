@@ -1,15 +1,16 @@
 .navbar {
     background: var(--prussian-blue);
 }
-
 .nav-link,
 .navbar-brand {
-    color: #fff;
+    color: var(--cultured);
     cursor: pointer;
 }
-
-.nav-link:hover {
-    color: #539987;
+.nav-link {
+    font-size: 25px;
+}
+#nav-brand {
+    font-size: 30px;
 }
 .navbar-collapse {
     justify-content: flex-end;

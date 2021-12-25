@@ -1,28 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
-{% include 'navbar.html' %}
-<div id='content'>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 mt-3 left">
-                {% for post in post_list %}
-                    <div class="card mb-4" >
-                        <div class="card-body">
-                            <h2 class="card-title">{{ post.title }}</h2>
-                            <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
+    <head>
+        <title>JPaubel | Blog-Post</title>
+    </head>
+    {% include 'navbar.html' %}
+    <div id='content'>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mt-3 left">
+                    {% for post in post_list %}
+                        <div class="card mb-4" >
+                            <div class="card-body">
+                                <h2 class="card-title">{{ post.title }}</h2>
+                                <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
 
-                            <p class="card-text">{{post.content | safe | slice:":200" }}...</p>
-                            <a href="{% url 'post_detail' post.slug  %}">
-                                <button class="btn btn-md btn-primary">
-                                    Back <i class="fa fa-angle-double-right"></i>
-                                </button>
-                            </a>
+                                <p class="card-text">{{post.content | safe | slice:":200" }}...</p>
+                                <a href="{% url 'post_detail' post.slug  %}">
+                                    <button class="btn btn-md btn-primary">
+                                        Back <i class="fa fa-angle-double-right"></i>
+                                    </button>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
-</div>
-{% include 'footer.html' %}
+    {% include 'footer.html' %}
 {%endblock%}
