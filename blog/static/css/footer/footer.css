@@ -14,3 +14,11 @@
     color: #d8dee9;
     padding: 40px 0;
 }
+@media (max-width: 768px) {
+    .extra-links {
+        margin: 1em;
+    }
+    .contact-links {
+        margin: 1em;
+    }
+}

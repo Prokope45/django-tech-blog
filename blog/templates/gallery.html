@@ -16,7 +16,7 @@
                     <!--Gallery-->
                     <div class="row m-4">
                     {% for photo in image.gallery.sample %}
-                        <a class="align-self-center" title="{{ photo.title }}" href="{{ photo.get_display_url }}" data-lightbox="gallery-example" max-height="150px">
+                        <a class="align-self-center m-1" title="{{ photo.title }}" href="{{ photo.get_display_url }}" data-lightbox="gallery-example" max-height="150px">
                             <img src="{{ photo.get_thumbnail_url }}">
                         </a>
                     {% endfor %}
