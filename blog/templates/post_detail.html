@@ -1,26 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
-{% include 'navbar.html' %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-12 card mb-4  mt-3 left  top">
-            <div class="card-body">
-                <h1>{% block title %} {{ object.title }} {% endblock title %}</h1>
-                <p class=" text-muted">{{ post.author }} | {{ post.created_on }}</p>
-                {% if post.thumb %}
-                    <img class="mx-auto d-block" src="{{ post.thumb.url }}"/>
-                {% else %}
-                    <p></p>
-                {% endif %}
-                <p class="card-text ">{{ object.content | safe }}</p>
-                <a href="{% url 'blog' %}">
-                    <button class="btn btn-md btn-primary">
-                    <i class="fa fa-angle-double-left"></i> Back
-                    </button>
-                </a>
+    <head>
+        <title>JPaubel | Blog-Post-Detail</title>
+    </head>
+    {% include 'navbar.html' %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 card mb-4  mt-3 left  top">
+                <div class="card-body">
+                    <h1>{% block title %} {{ object.title }} {% endblock title %}</h1>
+                    <p class=" text-muted">{{ post.author }} | {{ post.created_on }}</p>
+                    {% if post.thumb %}
+                        <img class="post-image mx-auto d-block" src="{{ post.thumb.url }}"/>
+                    {% else %}
+                        <p></p>
+                    {% endif %}
+                    <p class="card-text ">{{ object.content | safe }}</p>
+                    <a href="{% url 'blog' %}">
+                        <button class="btn btn-md btn-primary">
+                        <i class="fa fa-angle-double-left"></i> Back
+                        </button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-</div>
-{% include 'footer.html' %}
+    {% include 'footer.html' %}
 {% endblock content %}
