@@ -49,9 +49,9 @@ def contact_view(request):
                 send_mail(email_subject, email_message, from_email, ['admin@example.com'], fail_silently=False)
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
-            messages.success(request, 'Message sent.')
+            messages.success(request, 'Message sent!')
             return redirect('contact')
-        messages.error(request, 'HCaptcha was not completed.')
+        messages.error(request, 'Please complete HCaptcha below.')
     else:
         form = ContactForm()
 
