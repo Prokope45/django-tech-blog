@@ -1,12 +1,19 @@
-/* To Be Filled */
-.body {
-    min-height: 100%;
+.h1 {
+    margin: 1em !important;
 }
-
-.gallery-content {
-    position: absolute;
-    min-height: 100%;
-    min-width: 100%;
-    left: 0;
-    top: 0;
+.scroll_gallery {
+    overflow-x: scroll;
+}
+.photo_gallery {
+    display: flex;
+}
+.photo_gallery a {
+    display: inline-block;
+    height: 75px;
+}
+.photo_gallery img {
+    object-position: center;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
 }

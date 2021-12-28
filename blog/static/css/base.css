@@ -5,7 +5,7 @@
 @import "links/links.css";
 @import "blog/blog.css";
 @import "contact/contact.css";
-@import "media_queries.css";
+@import "contact/media_queries.css";
 @import "index/control.css";
 @import "gallery/gallery.css";
 
@@ -21,12 +21,10 @@ body {
 .head_text {
     color: white;
 }
-img {
-    box-shadow: 10px 10px 5px #E3E7EB;
-    border-radius: 16px;
-    border: 1px #E3E7EB;
-    height: auto;
-}
 #content {
    padding-bottom:60px;
+}
+#container {
+   min-height:100%;
+   position: relative;
 }
