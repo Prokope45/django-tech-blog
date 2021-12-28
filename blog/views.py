@@ -3,9 +3,9 @@ from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import generic
-from .models import Post
+
 from .forms import ContactForm
-from django.views.generic.base import TemplateView
+from .models import Post, Image
 
 
 def index_view(request):
@@ -27,7 +27,10 @@ class PostDetail(generic.DetailView):
 
 
 def gallery_view(request):
-    return render(request, 'gallery.html')
+    image_list = Image.objects.all()
+    context = {'image_list': image_list}
+    print(context)
+    return render(request, 'gallery.html', context)
 
 
 def contact_view(request):
@@ -46,9 +49,9 @@ def contact_view(request):
                 send_mail(email_subject, email_message, from_email, ['admin@example.com'], fail_silently=False)
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
-            messages.success(request, 'Message sent.')
+            messages.success(request, 'Message sent!')
             return redirect('contact')
-        messages.error(request, 'HCaptcha was not completed.')
+        messages.error(request, 'Please complete HCaptcha below.')
     else:
         form = ContactForm()
 
