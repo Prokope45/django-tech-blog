@@ -1,16 +1,16 @@
 .h1 {
     margin: 1em !important;
 }
-
+.scroll_gallery {
+    overflow-x: scroll;
+}
 .photo_gallery {
     display: flex;
 }
-
 .photo_gallery a {
     display: inline-block;
     height: 75px;
 }
-
 .photo_gallery img {
     object-position: center;
     object-fit: cover;

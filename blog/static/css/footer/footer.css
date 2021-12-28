@@ -14,7 +14,7 @@
     color: #d8dee9;
     padding: 40px 0;
 }
-@media (max-width: 768px) {
+@media (max-width: 740px) {
     .extra-links {
         margin: 1em;
     }

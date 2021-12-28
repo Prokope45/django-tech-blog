@@ -12,12 +12,13 @@
                         <div class="card mb-4" >
                             <div class="card-body">
                                 <h2 class="card-title">{{ post.title }}</h2>
-                                <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
+                                <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on }} </p>
 
-                                <p class="card-text">{{post.content | safe | slice:":200" }}...</p>
+                                <p class="card-text">{{ post.content | safe | slice:":200" }}...</p>
                                 <a href="{% url 'post_detail' post.slug  %}">
                                     <button class="btn btn-md btn-primary">
-                                        Back <i class="fa fa-angle-double-right"></i>
+                                        Back
+                                        <i class="fa fa-angle-double-right ml-1"></i>
                                     </button>
                                 </a>
                             </div>
