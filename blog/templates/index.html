@@ -1,97 +1,91 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
-{% load static %}
 {% block index %}
 <head>
     <title>JPaubel | Portfolio</title>
 </head>
 
 {% include 'navbar.html' %}
-<body>
-    <header class="page-header header container-fluid" style="background-image: url('src/images/index_background.png');">
-       
-        <div class="overlay"></div>
-        <div class="description col-lg-6 col-md-6 col-sm-12">
-            <div class="container">
-                <img id="profile" class=" img-fluid img-thumbnail rounded" src="../static/img/Jared.jpeg">
-            </div>
-            <div id="links">
-                <h1>Welcome to my Portfolio!</h1>
-                <p>
-                    This site is my professional technology portfolio where I'll demonstrate my skills as a
-                    developer.
-                </p>
+    <body>
+        <header class="page-header header container-fluid" style="background-image: url('src/images/index_background.png');">
 
-                <div class="row justify-content-center">
-                    <div class="contact-button">
-                        <a class="github btn btn-primary btn-lg raise"
-                           href="https://github.com/JaredP45"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           role="button"
-                        >
-                            <i class="fa fa-github"></i>
-                        </a>
-                    </div>
-
-                    <div class="contact-button">
-                        <a class="stack-overflow btn btn-primary btn-lg raise"
-                           href="https://stackoverflow.com/users/17229315/jared"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           role="button"
-                        >
-                            <i class="fa fa-stack-overflow"></i>
-                        </a>
-                    </div>
-
-                    <div class="contact-button">
-                        <a class="slack btn btn-primary btn-lg raise"
-                           href="https://devict.slack.com/team/U0270UEH8UT/"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           role="button"
-                        >
-                            <i class="fa fa-slack"></i>
-                        </a>
-                    </div>
-
-                    <div class="contact-button">
-                        <a class="linkedin btn btn-primary btn-lg raise"
-                           href="https://linkedin.com/in/jared-paubel"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           role="button"
-                        >
-                            <i class="fa fa-linkedin"></i>
-                        </a>
-                    </div> 
+            <div class="overlay"></div>
+            <div class="description col-lg-6 col-md-6 col-sm-12">
+                <div class="container">
+                    <img id="profile" class=" img-fluid img-thumbnail rounded" src="../static/img/Jared.jpeg">
                 </div>
-            </div>            
-        </div>
-    </header>
-    
-    <h3 class="project text-center">About Me</h3>
-    <div class="container features">
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <h3 class="feature-title">My Programming Experience</h3>
-                <p>
-                    I primarily program in Python, but I am also learning more about Swift, C#, and Java programming as
-                    well. For my current job, I work on the backend using Django, and I occasionally work on frontend
-                    using ReactJS.
-                </p>
-            </div>
+                <div id="links">
+                    <h1>Welcome to my Portfolio!</h1>
+                    <p>
+                        This site is my professional technology portfolio where I'll demonstrate my skills as a
+                        developer.
+                    </p>
 
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <h3 class="feature-title">My Plans After Graduating Community College</h3>
-                <p>
-                    I will begin my career as a full-time software developer after graduating, and will continue my
-                    education studying for a Bachelors degree in Machine Learning.
-                </p>
+                    <div class="row justify-content-center">
+                        <div class="contact-button">
+                            <a class="github btn btn-primary btn-lg raise"
+                               href="https://github.com/JaredP45"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               role="button"
+                            >
+                                <i class="fa fa-github"></i>
+                            </a>
+                        </div>
+
+                        <div class="contact-button">
+                            <a class="stack-overflow btn btn-primary btn-lg raise"
+                               href="https://stackoverflow.com/users/17229315/jared"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               role="button"
+                            >
+                                <i class="fa fa-stack-overflow"></i>
+                            </a>
+                        </div>
+
+                        <div class="contact-button">
+                            <a class="slack btn btn-primary btn-lg raise"
+                               href="https://devict.slack.com/team/U0270UEH8UT/"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               role="button"
+                            >
+                                <i class="fa fa-slack"></i>
+                            </a>
+                        </div>
+
+                        <div class="contact-button">
+                            <a class="linkedin btn btn-primary btn-lg raise"
+                               href="https://linkedin.com/in/jared-paubel"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               role="button"
+                            >
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <h3 class="project text-center">About Me</h3>
+        <div class="container features">
+            <div class="row">
+                {% for data in dataset %}
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <h3 class="feature-title">About Me</h3>
+                        <p>{{ data.about_me }}</p>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <h3 class="feature-title">Future Plans</h3>
+                        <p>{{ data.plans }}</p>
+                    </div>
+                {% endfor %}
             </div>
         </div>
-    </div>
-</body>
-{% include 'footer.html' %}
+    </body>
+    {% include 'footer.html' %}
 {% endblock index %}
