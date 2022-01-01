@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -6,11 +8,12 @@ from photologue.models import Gallery
 
 # Index Page
 class IndexDescription(models.Model):
+    date = models.DateTimeField(default=datetime.now())
     plans = models.TextField()
     about_me = models.TextField()
 
     def __str__(self):
-        return self.plans
+        return str(self.date)
 
 
 # Blog Page
