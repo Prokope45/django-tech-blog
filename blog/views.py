@@ -5,11 +5,12 @@ from django.shortcuts import render, redirect
 from django.views import generic
 
 from .forms import ContactForm
-from .models import Post, Image
+from .models import IndexDescription, Post, Image
 
 
 def index_view(request):
-    return render(request, 'index.html')
+    context = {'dataset': IndexDescription.objects.all()}
+    return render(request, 'index.html', context)
 
 
 def portfolio_view(request):
