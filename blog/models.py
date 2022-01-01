@@ -4,6 +4,15 @@ from django.contrib.auth.models import User
 from photologue.models import Gallery
 
 
+# Index Page
+class IndexDescription(models.Model):
+    plans = models.TextField()
+    about_me = models.TextField()
+
+    def __str__(self):
+        return self.plans
+
+
 # Blog Page
 STATUS = (
     (0, "Draft"),
