@@ -8,12 +8,11 @@ from photologue.models import Gallery
 
 # Index Page
 class IndexDescription(models.Model):
-    date = models.DateTimeField(default=datetime.now())
-    plans = models.TextField()
     about_me = models.TextField()
+    plans = models.TextField()
 
     def __str__(self):
-        return str(self.date)
+        return "About Me & Future Plans"
 
 
 # Blog Page
