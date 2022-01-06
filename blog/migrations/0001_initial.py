@@ -9,7 +9,6 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('photologue', '0012_alter_photo_effect'),
         ('auth', '0012_alter_user_first_name_max_length'),
     ]
 

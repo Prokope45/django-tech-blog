@@ -7,7 +7,6 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('photologue', '0012_alter_photo_effect'),
         ('blog', '0002_rename_photo_image'),
     ]
 
