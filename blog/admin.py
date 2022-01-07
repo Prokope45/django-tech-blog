@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import IndexDescription, Post, Contact, Image
 from django_summernote.admin import SummernoteModelAdmin
+
+from .models import IndexDescription, Post, Contact, Image
 
 
 class PostAdmin(SummernoteModelAdmin):
