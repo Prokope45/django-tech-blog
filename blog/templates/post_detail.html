@@ -11,7 +11,9 @@
                     <h1>{% block title %} {{ object.title }} {% endblock title %}</h1>
                     <p class="text-muted">{{ post.author }} | {{ post.created_on }}</p>
                     {% if post.thumb %}
-                        <img class="post-image mx-auto d-block col-lg-6 col-md-12 col-sm-12" src="{{ post.thumb.url }}"/>
+                        <img class="post-image mx-auto d-block col-lg-6 col-md-12 col-sm-12"
+                             src="{{ post.thumb.url }}"
+                        />
                     {% else %}
                         <p></p>
                     {% endif %}
