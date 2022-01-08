@@ -1,3 +1,7 @@
+.nav-link:visited {
+    color: var(--cultured) !important;
+    background-color: transparent;
+}
 .nav-link:link {
     color: var(--cultured) !important;
     background-color: transparent;
@@ -5,6 +9,7 @@
 .nav-link:hover {
     color: var(--blue-green) !important;
     background-color: transparent;
+    font-weight: bold;
 }
 .nav-link.active {
     color: var(--dark-sky-blue) !important;
