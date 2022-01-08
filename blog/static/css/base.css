@@ -27,6 +27,10 @@ body {
    min-height:100%;
    position: relative;
 }
+a:visited {
+    color: var(--cultured);
+    background-color: transparent;
+}
 a:link {
     color: var(--cultured);
     background-color: transparent;
@@ -35,6 +39,6 @@ a:hover {
     color: var(--dark-sky-blue);
     background-color: transparent;
 }
-a:active {
+a.active {
     color: var(--dark-sky-blue);
 }
