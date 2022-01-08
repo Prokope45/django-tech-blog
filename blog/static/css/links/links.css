@@ -1,3 +1,4 @@
+/*
 a:link {
   color: var(--cultured);
   background-color: transparent;
@@ -12,6 +13,7 @@ a:hover {
     background-color: transparent;
 }
 a:active {
-    color: #6666FF;
+    color: var(--indigo-dye);
     background-color: transparent;
 }
+*/

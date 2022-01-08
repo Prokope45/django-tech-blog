@@ -14,3 +14,7 @@
 .navbar-collapse {
     justify-content: flex-end;
 }
+
+.nav-item:active {
+    color: var(--blue-green) !important;
+}
