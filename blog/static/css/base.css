@@ -2,7 +2,6 @@
 @import "navbar/navbar.css";
 @import "footer/footer.css";
 @import "buttons/buttons.css";
-@import "links/links.css";
 @import "blog/blog.css";
 @import "contact/contact.css";
 @import "contact/media_queries.css";
@@ -13,7 +12,7 @@ html {
     height: 100%;
 }
 body {
-   background-color: var(--cultured) !important;
+   background-color: var(--cultured);
    margin:0;
    padding:0;
    height:100%;
@@ -27,4 +26,15 @@ body {
 #container {
    min-height:100%;
    position: relative;
+}
+a:link {
+    color: var(--cultured);
+    background-color: transparent;
+}
+a:hover {
+    color: var(--dark-sky-blue);
+    background-color: transparent;
+}
+a:active {
+    color: var(--dark-sky-blue);
 }
