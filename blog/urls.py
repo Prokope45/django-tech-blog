@@ -2,7 +2,7 @@
 from . import views
 from django.urls import path
 
-from .views import index_view, portfolio_view, contact_view, gallery_view
+from .views import index_view, contact_view, gallery_view
 
 urlpatterns = [
     path('', index_view, name='home'),
