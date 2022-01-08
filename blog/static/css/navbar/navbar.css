@@ -1,3 +1,15 @@
+.nav-link:link {
+    color: var(--cultured) !important;
+    background-color: transparent;
+}
+.nav-link:hover {
+    color: var(--blue-green) !important;
+    background-color: transparent;
+}
+.nav-link.active {
+    color: var(--dark-sky-blue) !important;
+    font-weight: bold;
+}
 .navbar {
     background: var(--prussian-blue);
 }
@@ -13,8 +25,4 @@
 }
 .navbar-collapse {
     justify-content: flex-end;
-}
-.navbar.active {
-    color: #32CD9E;
-    font-weight: bold;
 }
