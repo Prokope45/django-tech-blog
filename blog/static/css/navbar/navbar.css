@@ -9,11 +9,9 @@
 .nav-link:hover {
     color: var(--blue-green) !important;
     background-color: transparent;
-    font-weight: bold;
 }
 .nav-link.active {
     color: var(--dark-sky-blue) !important;
-    font-weight: bold;
 }
 .navbar {
     background: var(--prussian-blue);
