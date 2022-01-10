@@ -1,15 +1,31 @@
 .contact-button {
-    margin: 10px;
+    margin: 5px;
 }
-.github {
-    background-color: #333333 !important;
+
+.github::before {
+  box-shadow: inset 0 0 0 1px var(--github);
 }
-.stack-overflow {
-    background-color: #ffac44 !important;
+.github:hover::before {
+  box-shadow: inset 0 0 0 60px var(--github);
 }
-.slack {
-    background-color: #481449 !important;
+
+.stack-overflow::before {
+  box-shadow: inset 0 0 0 1px var(--stack-overflow);
 }
-.linkedin {
-    background-color: #0082ca !important;
+.stack-overflow:hover::before {
+  box-shadow: inset 0 0 0 60px var(--stack-overflow);
+}
+
+.slack::before {
+  box-shadow: inset 0 0 0 1px var(--slack);
+}
+.slack:hover::before {
+  box-shadow: inset 0 0 0 60px var(--slack);
+}
+
+.linkedin::before {
+  box-shadow: inset 0 0 0 1px var(--linkedin);
+}
+.linkedin:hover::before {
+  box-shadow: inset 0 0 0 60px var(--linkedin);
 }

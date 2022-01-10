@@ -1,3 +1,4 @@
+/* Fade animation for contact links, profile picture, and description. */
 #profile {
   animation: fadeIn 2s;
   -webkit-animation: fadeIn 2s;
@@ -37,17 +38,33 @@
   100% {opacity:1;}
 }
 
-.raise:hover,
-.raise:focus {
-  box-shadow: 0 0.8em 0.8em -0.2em var(--hover);
-  transform: translateY(-0.6em);
+/* Contact Links */
+.icon {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  margin-left: 12px;
+  margin-right: 12px;
+  overflow: hidden;
 }
-.raise {
-  --color: white;
-  --hover: #ebcb8b;
-  color: var(--color);
-  transition: 0.25s;
+.icon::before, .icon::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  transition: all 0.25s ease;
 }
-button:hover, button:focus {
-  border-color: var(--hover);
+.icon i {
+  position: relative;
+  font-size: 30px;
+  margin-top: 15px;
+  color: white;
+  transition: all 0.25s ease;
+}
+.icon-fill::before {
+  transition-duration: 0.5s;
 }
