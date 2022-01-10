@@ -47,7 +47,11 @@ INSTALLED_APPS = [
     'sortedm2m',
     'django_otp',
     'django_otp.plugins.otp_totp',
+    'taggit',
 ]
+
+# Taggit set case as insensitive
+TAGGIT_CASE_INSENSITIVE = True
 
 SITE_ID = 1
 

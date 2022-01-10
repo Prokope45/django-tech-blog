@@ -3,6 +3,8 @@ from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
+from taggit.managers import TaggableManager
+
 from photologue.models import Gallery
 
 
@@ -31,6 +33,7 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
     thumb = models.ImageField(blank=True)
+    tag = TaggableManager()
 
     class Meta:
         ordering = ['-created_on']
