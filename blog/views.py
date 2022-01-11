@@ -2,7 +2,9 @@ from django.contrib import messages
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.views import generic
+from django.views.generic import ListView, DetailView
+
+from taggit.models import Tag
 
 from .forms import ContactForm
 from .models import IndexDescription, Post, Image
@@ -13,12 +15,30 @@ def index_view(request):
     return render(request, 'index.html', context)
 
 
-class PostList(generic.ListView):
+class TagMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(TagMixin, self).get_context_data(**kwargs)
+        context['tag'] = Tag.objects.all()
+        return context
+
+
+class TagIndexView(TagMixin, ListView):
+    model = Post
+    template_name = 'post_list.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        return Post.objects.filter(tag__slug=self.kwargs.get('tag_slug'))
+
+
+class PostList(TagMixin, ListView):
+    model = Post
+    template_name = 'post_list.html'
     queryset = Post.objects.filter(status=1).order_by('-created_on')
-    template_name = 'post.html'
+    context_object_name = 'posts'
 
 
-class PostDetail(generic.DetailView):
+class PostDetail(DetailView):
     model = Post
     template_name = 'post_detail.html'
 
