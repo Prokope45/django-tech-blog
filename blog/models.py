@@ -8,11 +8,17 @@ from photologue.models import Gallery
 
 # Index Page
 class IndexDescription(models.Model):
-    about_me = models.TextField()
-    plans = models.TextField()
+    greeting_title = models.CharField(max_length=200, default='', null=True)
+    greeting_description = models.TextField(default='', null=True)
+
+    about_me_title = models.CharField(max_length=200, default='', null=True)
+    about_me_description = models.TextField(default='', null=True)
+
+    plans_title = models.CharField(max_length=200, default='', null=True)
+    plans_description = models.TextField(default='', null=True)
 
     def __str__(self):
-        return "About Me & Future Plans"
+        return "Greeting, About Me & Future Plans"
 
 
 # Blog Page
