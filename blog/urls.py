@@ -1,4 +1,3 @@
-
 from . import views
 from django.urls import path
 
@@ -10,5 +9,6 @@ urlpatterns = [
     path('contact/', contact_view, name='contact'),
     path('gallery/', gallery_view, name='gallery'),
     path('<slug:slug>/', views.PostDetail.as_view(), name='post_detail'),
+    path('tags/<slug:tag_slug>/', views.TagIndexView.as_view(), name='posts_by_tag'),
 ]
 

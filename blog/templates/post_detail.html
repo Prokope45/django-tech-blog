@@ -17,7 +17,18 @@
                     {% else %}
                         <p></p>
                     {% endif %}
+
                     <p class="card-text">{{ object.content | safe }}</p>
+
+                    <div class="mt-3 mb-3">
+                        <strong>Tags:</strong>
+                        {% for tag in post.tag.all %}
+                            <div class="link-light text-decoration-none badge bg-secondary">
+                               {{ tag.name }}
+                            </div>
+                        {% endfor %}
+                    </div>
+
                     <a href="{% url 'blog' %}">
                         <button class="btn btn-md btn-primary">
                             <i class="fa fa-angle-double-left mr-1"></i>
