@@ -7,86 +7,82 @@
 
 {% include 'navbar.html' %}
     <body>
-        <header class="page-header header container-fluid"
-                style="background-image: url('src/images/index_background.png');"
-        >
-            <div class="overlay"></div>
-            <div class="description col-lg-6 col-md-6 col-sm-12">
-                <div class="container">
-                    <img id="profile" class=" img-fluid img-thumbnail rounded" src="../static/img/Jared.jpeg">
-                </div>
-                <div id="links">
-                    <h1>Welcome to my Portfolio!</h1>
-                    <p>
-                        This site is my professional technology portfolio where I'll demonstrate my skills as a
-                        developer.
-                    </p>
+        {% for data in index_data %}
+            <header class="page-header header container-fluid"
+                    style="background-image: url('src/images/index_background.png');"
+            >
+                <div class="overlay"></div>
+                <div class="description col-lg-6 col-md-6 col-sm-12">
+                    <div class="container">
+                        <img id="profile" class=" img-fluid img-thumbnail rounded" src="../static/img/Jared.jpeg">
+                    </div>
+                    <div id="links">
+                        <h1>{{ data.greeting_title }}</h1>
+                        <p>{{ data.greeting_description }}</p>
 
-                    <div class="row justify-content-center">
-                        <div class="contact-button">
-                            <a class="github icon icon-fill"
-                               href="https://github.com/JaredP45"
-                               target="_blank"
-                               rel="noopener noreferrer"
-                               role="button"
-                            >
-                                <i class="fa fa-github"></i>
-                            </a>
-                        </div>
+                        <div class="row justify-content-center">
+                            <div class="contact-button">
+                                <a class="github icon icon-fill"
+                                   href="https://github.com/JaredP45"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   role="button"
+                                >
+                                    <i class="fa fa-github"></i>
+                                </a>
+                            </div>
 
-                        <div class="contact-button">
-                            <a class="stack-overflow icon icon-fill"
-                               href="https://stackoverflow.com/users/17229315/jared"
-                               target="_blank"
-                               rel="noopener noreferrer"
-                               role="button"
-                            >
-                                <i class="fa fa-stack-overflow"></i>
-                            </a>
-                        </div>
+                            <div class="contact-button">
+                                <a class="stack-overflow icon icon-fill"
+                                   href="https://stackoverflow.com/users/17229315/jared"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   role="button"
+                                >
+                                    <i class="fa fa-stack-overflow"></i>
+                                </a>
+                            </div>
 
-                        <div class="contact-button">
-                            <a class="slack icon icon-fill"
-                               href="https://devict.slack.com/team/U0270UEH8UT/"
-                               target="_blank"
-                               rel="noopener noreferrer"
-                               role="button"
-                            >
-                                <i class="fa fa-slack"></i>
-                            </a>
-                        </div>
+                            <div class="contact-button">
+                                <a class="slack icon icon-fill"
+                                   href="https://devict.slack.com/team/U0270UEH8UT/"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   role="button"
+                                >
+                                    <i class="fa fa-slack"></i>
+                                </a>
+                            </div>
 
-                        <div class="contact-button">
-                            <a class="linkedin icon icon-fill"
-                               href="https://linkedin.com/in/jared-paubel"
-                               target="_blank"
-                               rel="noopener noreferrer"
-                               role="button"
-                            >
-                                <i class="fa fa-linkedin"></i>
-                            </a>
+                            <div class="contact-button">
+                                <a class="linkedin icon icon-fill"
+                                   href="https://linkedin.com/in/jared-paubel"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   role="button"
+                                >
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </header>
+            </header>
 
-        <h3 class="project text-center">About Me</h3>
-        <div class="container features">
-            <div class="row">
-                {% for data in dataset %}
+            <div class="container features">
+                <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12">
-                        <h3 class="feature-title">About Me</h3>
-                        <p>{{ data.about_me }}</p>
+                        <h3 class="feature-title">{{ data.about_me_title }}</h3>
+                        <p>{{ data.about_me_description }}</p>
                     </div>
 
                     <div class="col-lg-6 col-md-6 col-sm-12">
-                        <h3 class="feature-title">Future Plans</h3>
-                        <p>{{ data.plans }}</p>
+                        <h3 class="feature-title">{{ data.plans_title }}</h3>
+                        <p>{{ data.plans_description }}</p>
                     </div>
-                {% endfor %}
+                </div>
             </div>
-        </div>
+        {% endfor %}
     </body>
     {% include 'footer.html' %}
 {% endblock index %}

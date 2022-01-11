@@ -9,7 +9,7 @@ from .models import IndexDescription, Post, Image
 
 
 def index_view(request):
-    context = {'dataset': IndexDescription.objects.all()}
+    context = {'index_data': IndexDescription.objects.all()}
     return render(request, 'index.html', context)
 
 
