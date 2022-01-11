@@ -6,7 +6,7 @@
     {% include 'navbar.html' %}
     <div class="container">
         <div class="row">
-            <div class="col-md-12 card mb-4  mt-3 left  top">
+            <div class="col-md-12 card mb-4  mt-3 left top">
                 <div class="card-body">
                     <h1>{% block title %} {{ object.title }} {% endblock title %}</h1>
                     <p class="text-muted">{{ post.author }} | {{ post.created_on }}</p>
@@ -17,7 +17,22 @@
                     {% else %}
                         <p></p>
                     {% endif %}
+
                     <p class="card-text">{{ object.content | safe }}</p>
+
+                    <div class="mt-3 mb-3">
+                        <strong>Tags:</strong>
+                        <div class="d-flex flex-row">
+                            {% for tag in post.tag.all %}
+                                  <div class="link-light badge bg-secondary mr-1">
+                                     <a class="h6" href="{% url 'posts_by_tag' tag.slug %}">
+                                        {{ tag.name }}
+                                     </a>
+                                  </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
                     <a href="{% url 'blog' %}">
                         <button class="btn btn-md btn-primary">
                             <i class="fa fa-angle-double-left mr-1"></i>
