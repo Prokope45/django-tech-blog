@@ -21,8 +21,8 @@
                     <p class="card-text">{{ object.content | safe }}</p>
 
                     <div class="mt-3 mb-3">
-                        <strong>Tags:</strong>
                         <div class="d-flex flex-row">
+                            <strong class="mr-1">Tags:</strong>
                             {% for tag in post.tag.all %}
                                   <div class="link-light badge bg-secondary mr-1">
                                      <a class="h6" href="{% url 'posts_by_tag' tag.slug %}">
