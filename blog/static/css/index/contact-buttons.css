@@ -1,10 +1,6 @@
-.contact-button {
-    margin: 5px;
-}
 .icon-fill::before {
     transition-duration: 0.5s;
 }
-
 .github > i {
     color: var(--cultured);
 }
