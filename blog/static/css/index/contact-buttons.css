@@ -1,31 +1,59 @@
 .contact-button {
     margin: 5px;
 }
+.icon-fill::before {
+  transition-duration: 0.5s;
+  background: white;
+}
 
+.github > i {
+    color:  var(--github)
+}
 .github::before {
-  box-shadow: inset 0 0 0 1px var(--github);
+  box-shadow: inset 0 0 0 3px var(--github);
 }
 .github:hover::before {
   box-shadow: inset 0 0 0 60px var(--github);
 }
+.github:hover > i {
+    color: var(--cultured);
+}
 
+.stack-overflow > i {
+    color:  var(--stack-overflow)
+}
 .stack-overflow::before {
-  box-shadow: inset 0 0 0 1px var(--stack-overflow);
+  box-shadow: inset 0 0 0 2.5px var(--stack-overflow);
 }
 .stack-overflow:hover::before {
   box-shadow: inset 0 0 0 60px var(--stack-overflow);
 }
+.stack-overflow:hover > i {
+    color: var(--cultured);
+}
 
+.slack > i {
+    color:  var(--slack)
+}
 .slack::before {
-  box-shadow: inset 0 0 0 1px var(--slack);
+  box-shadow: inset 0 0 0 2.5px var(--slack);
 }
 .slack:hover::before {
   box-shadow: inset 0 0 0 60px var(--slack);
 }
+.slack:hover > i {
+    color: var(--cultured);
+}
 
+.linkedin > i {
+    color:  var(--linkedin)
+}
 .linkedin::before {
-  box-shadow: inset 0 0 0 1px var(--linkedin);
+  box-shadow: inset 0 0 0 2.5px var(--linkedin);
 }
 .linkedin:hover::before {
   box-shadow: inset 0 0 0 60px var(--linkedin);
+}
+.linkedin:hover > i {
+    color: var(--cultured);
 }

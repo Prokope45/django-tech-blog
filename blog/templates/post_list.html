@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="m-3">
                     {% for tag in tag %}
-                    <div class="link-light badge bg-secondary">
+                    <div class="mb-1 link-light badge bg-secondary">
                         <a class="h6" href="{% url 'posts_by_tag' tag.slug %}">{{ tag.name }}</a>
                     </div>
                     {% endfor %}
