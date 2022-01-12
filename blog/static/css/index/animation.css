@@ -57,6 +57,7 @@
   height: 100%;
   width: 100%;
   transition: all 0.25s ease;
+  border-radius: 15px;
 }
 .icon i {
   position: relative;
@@ -64,7 +65,4 @@
   margin-top: 15px;
   color: white;
   transition: all 0.25s ease;
-}
-.icon-fill::before {
-  transition-duration: 0.5s;
 }
