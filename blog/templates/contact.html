@@ -6,10 +6,16 @@
         <title>JPaubel | Contact</title>
     </head>
     <div id="bg" style="background-image: url('{% static 'img/background.png' %}');">
-    {% include 'navbar.html' %}
-    {% include 'messages.html' %}
-        <div id="Form-Body" class="container p-4 my-4">
-            <form id="contactForm" method="POST">
+        <div class="mb-4">
+            {% include 'navbar.html' %}
+        </div>
+
+        <div id="contact-messages" class="mx-auto">
+            {% include 'messages.html' %}
+        </div>
+
+        <div id="Form-Body" class="container p-4">
+            <form method="POST">
                 {% csrf_token %}
                 <div class="mb-1 text-center">
                     <h2>Contact Me</h2>
@@ -61,6 +67,10 @@
                 </div>
              </form>
         </div>
-        {% include 'footer.html' %}
+
+        <div class="mt-4">
+            {% include 'footer.html' %}
+        </div>
+
     </div>
 {% endblock contact %}
