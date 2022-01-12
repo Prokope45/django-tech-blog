@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -49,7 +47,7 @@ class Post(models.Model):
 
 
 # Gallery Page
-class Image(models.Model):
+class PhotoGallery(models.Model):
     gallery = models.ForeignKey(Gallery, on_delete=models.SET_NULL, null=True)
 
     title = models.CharField(max_length=199)
