@@ -14,10 +14,10 @@
 
                     <!--Gallery-->
                     <div class="row m-4">
-                        {% for photo in image.gallery.sample %}
+                        {% for photo in image.gallery.public %}
                             <a class="align-self-center m-1"
                                title="{{ photo.title }}" href="{{ photo.get_display_url }}"
-                               data-lightbox="gallery-example"
+                               data-lightbox="{{ image.gallery.title }}"
                             >
                                 <img src="{{ photo.get_thumbnail_url }}">
                             </a>
