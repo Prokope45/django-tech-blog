@@ -7,14 +7,16 @@ from django.views.generic import ListView, DetailView
 from taggit.models import Tag
 
 from .forms import ContactForm
-from .models import IndexDescription, Post, Image
+from .models import IndexDescription, Post, PhotoGallery
 
 
+# Index/Home Page
 def index_view(request):
     context = {'index_data': IndexDescription.objects.all()}
     return render(request, 'index.html', context)
 
 
+# Blog Page
 class TagMixin(object):
     def get_context_data(self, **kwargs):
         context = super(TagMixin, self).get_context_data(**kwargs)
@@ -43,13 +45,15 @@ class PostDetail(DetailView):
     template_name = 'post_detail.html'
 
 
+# Gallery Page
 def gallery_view(request):
-    image_list = Image.objects.all()
-    context = {'image_list': image_list}
+    image_list = PhotoGallery.objects.all()
+    context = {'photo_list': image_list}
     print(context)
     return render(request, 'gallery.html', context)
 
 
+# Contact Page
 def contact_view(request):
     if request.method == 'POST':
         data = request.POST.copy()

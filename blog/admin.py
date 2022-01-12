@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
 
-from .models import IndexDescription, Post, Contact, Image
+from .models import IndexDescription, Post, Contact, PhotoGallery
 
 
 class PostAdmin(SummernoteModelAdmin):
@@ -18,5 +18,5 @@ class IndexAdmin(admin.ModelAdmin):
 
 admin.site.register(IndexDescription, IndexAdmin)
 admin.site.register(Post, PostAdmin)
-admin.site.register(Image)
+admin.site.register(PhotoGallery)
 admin.site.register(Contact)
