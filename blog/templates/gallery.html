@@ -13,19 +13,16 @@
                     <p>{{ image.content }}</p>
 
                     <!--Gallery-->
-                    <div class="image-row m-4">
-                        <div class="image-set">
+                    <div class="image-row">
                             {% for photo in image.gallery.public %}
-                                <a class="align-self-center m-1"
-                                   title="{{ photo.title }}" href="{{ photo.get_display_url }}"
+                                <a title="{{ photo.title }}" href="{{ photo.get_display_url }}"
                                    data-lightbox="{{ image.gallery.title }}"
                                 >
-                                    <img src="{{ photo.get_thumbnail_url }}"
+                                    <img class="m-1" src="{{ photo.get_thumbnail_url }}"
                                          alt="{{ photo.title }}: {{ photo.caption }}"
                                     >
                                 </a>
                             {% endfor %}
-                        </div>
                     </div>
                     <hr>
                 {% endfor %}
