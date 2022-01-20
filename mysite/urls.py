@@ -4,8 +4,9 @@ from django.contrib import admin
 from django_otp.admin import OTPAdminSite
 from django.urls import path, include
 
-# Force TOPT entry for admin login
-admin.site.__class__ = OTPAdminSite
+# Force TOTP entry for admin login
+if not settings.DEBUG:
+    admin.site.__class__ = OTPAdminSite
 
 urlpatterns = [
     path('admin/', admin.site.urls),

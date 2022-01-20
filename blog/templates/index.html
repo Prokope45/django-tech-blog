@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
+{% load static %}
 {% block index %}
 <head>
     <title>JPaubel | Portfolio</title>
@@ -9,12 +10,12 @@
     <body>
         {% for data in index_data %}
             <header class="page-header header container-fluid"
-                    style="background-image: url('src/images/index_background.png');"
+                    style="background-image: url('../media/home-page-banner.jpg');"
             >
                 <div class="overlay"></div>
                 <div class="description col-lg-6 col-md-6 col-sm-12">
-                    <div class="container">
-                        <img id="profile" class=" img-fluid img-thumbnail rounded" src="../static/img/Jared.jpeg">
+                    <div class="container col-lg-4 col-md-4 col-sm-12">
+                        <img id="profile" class="img-fluid img-thumbnail rounded" src="../media/profile_pic.png">
                     </div>
                     <div id="links">
                         <h1>{{ data.greeting_title }}</h1>

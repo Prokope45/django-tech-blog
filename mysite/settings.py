@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
-from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from django.contrib import messages
@@ -22,12 +21,12 @@ TEMPLATES_DIRS = os.path.join(BASE_DIR, 'templates')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-SECRET_KEY = config("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.jpaubel.tech']
 
 # Application definition
 
@@ -155,11 +154,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # Contact Form Email Settings
-EMAIL_BACKEND = config('EMAIL_BACKEND')
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
 
 # Bootstrap Messages
 MESSAGE_TAGS = {
@@ -171,6 +170,6 @@ MESSAGE_TAGS = {
 }
 
 # Hcaptcha Verification
-HCAPTCHA_SITEKEY = config('HCAPTCHA_SITEKEY')
-HCAPTCHA_SECRET = config('HCAPTCHA_SECRET')
-VERIFY_URL = config('VERIFY_URL')
+HCAPTCHA_SITEKEY = os.getenv('HCAPTCHA_SITEKEY')
+HCAPTCHA_SECRET = os.getenv('HCAPTCHA_SECRET')
+VERIFY_URL = os.getenv('VERIFY_URL')
