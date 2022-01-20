@@ -1,0 +1,10 @@
+.card {
+    background-color #f9f6f1 !important;
+    box-shadow: 0 0 10px 3px rgba(0,0,0,0.1);
+}
+.post-image img {
+    box-shadow: 10px 10px 5px #E3E7EB;
+    border-radius: 16px;
+    border: 1px #E3E7EB;
+    width: 500px;
+}
