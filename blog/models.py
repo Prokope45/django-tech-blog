@@ -9,6 +9,9 @@ from photologue.models import Gallery
 
 # Index Page
 class IndexDescription(models.Model):
+    hero_banner = models.ImageField(blank=True)
+    hero_image = models.ImageField(blank=True)
+
     greeting_title = models.CharField(max_length=200, default='', null=True)
     greeting_description = models.TextField(default='', null=True)
 

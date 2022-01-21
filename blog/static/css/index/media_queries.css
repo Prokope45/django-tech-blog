@@ -1,23 +1,29 @@
 /*Mobile-first responsive */
-@media (max-width: 575.98px) {
+@media (max-width: 1000px) {
     .description {
         left: 0;
         padding: 0 15px;
         position: absolute;
-        top: 5%;
         transform: none;
         text-align: center;
-    }
-    .description h1 {
-        font-size: 2em;
-    }
-    .description p {
-        font-size: 1.2rem;
+        font-size: 3vw;
     }
     .features {
         margin: 0;
     }
+    #profile {
+        width: 150px;
+    }
     .contact-button {
         width: 25%;
+    }
+}
+
+@media (max-width: 300px) {
+    #profile {
+        width: 100px;
+        margin-top: 5em;
+    }
+    .description {
     }
 }
