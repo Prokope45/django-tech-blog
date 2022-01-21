@@ -17,12 +17,11 @@ class GalleryAdmin(admin.ModelAdmin):
 class IndexAdmin(admin.ModelAdmin):
 
     if not settings.DEBUG:
-        def has_delete_permission(self, request, obj=None):
+        def has_delete_permission(self):
             return False
 
-        def has_add_permission(self, request):
+        def has_add_permission(self):
             return False
-
 
 admin.site.register(IndexDescription, IndexAdmin)
 admin.site.register(Post, PostAdmin)
