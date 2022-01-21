@@ -6,6 +6,11 @@ from .models import IndexDescription, Post, Contact, PhotoGallery
 
 class PostAdmin(SummernoteModelAdmin):
     summernote_fields = ('content',)
+    prepopulated_fields = { 'slug': ('title',), }
+
+
+class GalleryAdmin(admin.ModelAdmin):
+    prepopulated_fields = { 'slug': ('title',), }
 
 
 class IndexAdmin(admin.ModelAdmin):
@@ -18,5 +23,5 @@ class IndexAdmin(admin.ModelAdmin):
 
 admin.site.register(IndexDescription, IndexAdmin)
 admin.site.register(Post, PostAdmin)
-admin.site.register(PhotoGallery)
+admin.site.register(PhotoGallery, GalleryAdmin)
 admin.site.register(Contact)
