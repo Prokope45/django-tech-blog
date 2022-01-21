@@ -1,11 +1,11 @@
 @import "../colors/color.css";
 
 #bg{
-    max-width: 100%;
+    width: 100%;
     height: auto;
     background-position: center;
-    background-size: cover;
-    position: relative;
+    background-size: center;
+    background-repeat: no-repeat;
 }
 #Form-Body {
     background-color: white;
