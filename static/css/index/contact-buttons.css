@@ -1,0 +1,58 @@
+.icon-fill::before {
+    transition-duration: 0.5s;
+}
+.github > i {
+    color: var(--cultured);
+}
+.github::before {
+    box-shadow: inset 0 0 0 3px var(--github);
+    background: var(--github);
+}
+.github:hover::before {
+    box-shadow: inset 0 0 0 60px var(--cultured);
+}
+.github:hover > i {
+    color: var(--github);
+}
+
+.stack-overflow > i {
+    color: var(--cultured);
+}
+.stack-overflow::before {
+    box-shadow: inset 0 0 0 3px var(--stack-overflow);
+    background: var(--stack-overflow);
+}
+.stack-overflow:hover::before {
+    box-shadow: inset 0 0 0 60px var(--cultured);
+}
+.stack-overflow:hover > i {
+    color: var(--stack-overflow);
+}
+
+.slack > i {
+    color: var(--cultured);
+}
+.slack::before {
+    box-shadow: inset 0 0 0 3px var(--slack);
+    background: var(--slack);
+}
+.slack:hover::before {
+    box-shadow: inset 0 0 0 60px var(--cultured);
+}
+.slack:hover > i {
+    color: var(--slack);
+}
+
+.linkedin > i {
+    color: var(--cultured);
+}
+.linkedin::before {
+    box-shadow: inset 0 0 0 3px var(--linkedin);
+    background: var(--linkedin);
+}
+.linkedin:hover::before {
+    box-shadow: inset 0 0 0 60px var(--cultured);
+}
+.linkedin:hover > i {
+    color: var(--linkedin);
+}

@@ -1,0 +1,6 @@
+.h1 {
+    margin: 1em !important;
+}
+.scroll_gallery {
+    overflow-x: scroll;
+}
