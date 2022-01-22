@@ -7,11 +7,12 @@
 }
 .description h1 {
 	color: #FFFFFF;
+	font-size: 2em;
     padding: 10px;
 }
 .description p {
 	color: #fff;
-	font-size: 1.5rem;
+	font-size: 1.5em;
 	line-height: 1.5;
 }
 .description button {
