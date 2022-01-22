@@ -6,24 +6,29 @@
         position: absolute;
         transform: none;
         text-align: center;
-        font-size: 3vw;
+    }
+    .description p {
+        font-size: .5em;
     }
     .features {
         margin: 0;
     }
     #profile {
         width: 150px;
+        margin-top: 5em;
     }
     .contact-button {
         width: 25%;
     }
 }
 
+
 @media (max-width: 300px) {
     #profile {
-        width: 100px;
+        width: 125px;
         margin-top: 5em;
     }
-    .description {
+    p, h1 {
+        font-size: 15px;
     }
 }

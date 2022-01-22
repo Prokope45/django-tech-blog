@@ -19,14 +19,15 @@
             {% endif %}
                 <div class="overlay"></div>
 
-                <div class="description col-xl-8 col-lg-8 col-md-10 col-sm-10 col-12">
+                <div class="description col-xl-8 col-lg-6 col-md-6 col-sm-10 col-10">
                     {% if data.hero_image %}
                         <img id="profile" class="img-fluid" width="250" src="{{ data.hero_image.url }}" />
                     {% else %}
                     {% endif %}
+
+                    <h1>{{ data.greeting_title }}</h1>
+                    <p>{{ data.greeting_description }}</p>
                     <div id="links">
-                        <h1>{{ data.greeting_title }}</h1>
-                        <p>{{ data.greeting_description }}</p>
 
                         <div class="container">
                             <div class="row justify-content-center">
