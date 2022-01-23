@@ -1,5 +1,6 @@
 .env
 *.jpg
+*.JPG
 *.jpeg
 *.png
 db.sqlite3

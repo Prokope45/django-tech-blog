@@ -3,6 +3,7 @@ from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
+from django.conf import settings
 
 from taggit.models import Tag
 
@@ -67,7 +68,7 @@ def contact_view(request):
                             f'{form.cleaned_data["subject"]}'
             email_message = form.cleaned_data['message']
             try:
-                send_mail(email_subject, email_message, from_email, ['admin@example.com'], fail_silently=False)
+                send_mail(email_subject, email_message, settings.DEFAULT_FROM_EMAIL, ['jpaubel@pm.me', settings.DEFAULT_FROM_EMAIL], fail_silently=False)
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
             messages.success(request, 'Message sent!')
