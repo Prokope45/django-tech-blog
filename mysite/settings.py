@@ -4,7 +4,6 @@ Developer: Jared Paubel
 import os
 import dotenv
 from pathlib import Path
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from django.contrib import messages
 
@@ -18,7 +17,7 @@ if os.path.isfile(dotenv_file):
 SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['www.jpaubel.tech']
 
@@ -90,8 +89,11 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.environ['DATABASE_ENGINE'],
+        'NAME': os.environ['DATABASE_NAME'],
+        'USER': os.environ['DATABASE_USER'],
+        'PASSWORD': os.environ['DATABASE_PASSWORD'],
+        'HOST': os.environ['DATABASE_HOST'],
     }
 }
 
@@ -153,6 +155,8 @@ EMAIL_HOST = os.environ['EMAIL_HOST']
 EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 EMAIL_PORT = os.environ['EMAIL_PORT']
+EMAIL_USE_SSL = os.environ['EMAIL_USE_SSL']
+DEFAULT_FROM_EMAIL= os.environ['DEFAULT_FROM_EMAIL']
 
 # Bootstrap Messages
 MESSAGE_TAGS = {
