@@ -1,11 +1,11 @@
 @import "../colors/color.css";
 
-#bg{
+.contact-background {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     width: 100%;
     height: auto;
-    background-position: center;
-    background-size: center;
-    background-repeat: no-repeat;
 }
 #Form-Body {
     background-color: white;
