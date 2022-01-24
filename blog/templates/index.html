@@ -9,7 +9,6 @@
 {% include 'navbar.html' %}
     <body>
         {% for data in index_data %}
-
             {% if data.hero_banner %}
             <header class="page-header header container-fluid"
                 style="background-image: url({{ data.hero_banner.url }});"
@@ -79,6 +78,7 @@
                     </div>
                 </div>
             </header>
+            </header> <!-- two closing headers for if-else -->
 
             <div class="container features">
                 <div class="row">
