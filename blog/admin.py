@@ -22,6 +22,7 @@ class IndexAdmin(admin.ModelAdmin):
         def has_add_permission(self, request):
             return False
 
+
 admin.site.register(IndexDescription, IndexAdmin)
 admin.site.register(Post, PostAdmin)
 admin.site.register(PhotoGallery, GalleryAdmin)
