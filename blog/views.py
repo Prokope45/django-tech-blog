@@ -1,12 +1,15 @@
 from django.contrib import messages
 from django.core.mail import send_mail, BadHeaderError
+from django.conf import settings
+
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView
-from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 
+from django.views.generic import ListView, DetailView
+
 from taggit.models import Tag
+from git import Repo
 
 from .forms import ContactForm
 from .models import IndexDescription, Post, PhotoGallery
