@@ -90,7 +90,7 @@ def update(request):
         Pass the path of the directory where your project will be 
         stored on PythonAnywhere in the git.Repo() as parameter.
         '''
-        repo = Repo("jpaubel.tech/")
+        repo = git.Repo("jpaubel.tech/")
         origin = repo.remotes.origin
 
         origin.pull()
