@@ -90,10 +90,10 @@ def contact_view(request):
 def update(request):
     if request.method == "POST":
         '''
-        Pass the path of the directory where your project will be 
+        Pass the path of the directory where your project will be
         stored on PythonAnywhere in the git.Repo() as parameter.
         '''
-        repo = git.Repo("jpaubel.tech/")
+        repo = Repo("jpaubel.tech/")
         origin = repo.remotes.origin
 
         origin.pull()
