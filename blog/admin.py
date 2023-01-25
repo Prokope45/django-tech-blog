@@ -11,7 +11,7 @@ class PostAdmin(SummernoteModelAdmin):
 
 
 class GalleryAdmin(admin.ModelAdmin):
-    prepopulated_fields = { 'slug': ('title',), }
+    prepopulated_fields = { 'slug': ('country',), }
 
 
 class IndexAdmin(admin.ModelAdmin):

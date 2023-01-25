@@ -4,7 +4,7 @@ from django.utils import timezone
 
 from taggit.managers import TaggableManager
 
-from photologue.models import Gallery
+from photologue.models import Gallery, Photo
 
 
 # Index Page
@@ -50,16 +50,19 @@ class Post(models.Model):
 
 
 # Gallery Page
+# TODO: Change format to get Photos directly from Photologue, then generate new
+#   to enforce pagination
 class PhotoGallery(models.Model):
-    gallery = models.ForeignKey(Gallery, on_delete=models.SET_NULL, null=True)
-
-    title = models.CharField(max_length=199)
+    galleries = models.ManyToManyField(Gallery)
+    country = models.CharField(max_length=199)
     content = models.TextField()
-
     slug = models.SlugField(max_length=250, allow_unicode=True, blank=True)
 
+    class Meta:
+        ordering = ["country"]
+
     def __str__(self):
-        return self.title
+        return f"{self.country}"
 
 
 # Contact Page

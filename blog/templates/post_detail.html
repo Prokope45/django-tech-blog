@@ -11,32 +11,26 @@
                     <h1>{% block title %} {{ object.title }} {% endblock title %}</h1>
                     <p class="text-muted">{{ post.author }} | {{ post.created_on }}</p>
                     {% if post.thumb %}
-                        <img class="post-image mx-auto d-block col-lg-6 col-md-12 col-sm-12"
-                             src="{{ post.thumb.url }}"
-                        />
-                    {% else %}
-                        <p></p>
+                        <div class="mx-auto col-lg-6 col-md-8 col-sm-10">
+                            <img class="post-image img-fluid"
+                                 src="{{ post.thumb.url }}"
+                            />
+                        </div>
                     {% endif %}
 
-                    <p class="card-text">{{ object.content | safe }}</p>
+                    <p class="card-text mt-3">{{ object.content | safe }}</p>
 
-                    <div class="mt-3 mb-3">
-                        <div class="d-flex flex-row">
-                            <strong class="mr-1">Tags:</strong>
-                            {% for tag in post.tag.all %}
-                                  <div class="link-light badge bg-secondary mr-1">
-                                     <a class="h6" href="{% url 'posts_by_tag' tag.slug %}">
-                                        {{ tag.name }}
-                                     </a>
-                                  </div>
-                            {% endfor %}
-                        </div>
+                    <div id="tag" class="row m-1 mb-2">
+                        <strong class="mr-1">Tags:</strong>
+                        {% for tag in post.tag.all %}
+                            <a class="badge badge-pill m-1" href="{% url 'posts_by_tag' tag.slug %}">
+                                {{ tag.name }}
+                            </a>
+                        {% endfor %}
                     </div>
-
                     <a href="{% url 'blog' %}">
-                        <button class="btn btn-md btn-primary">
-                            <i class="fa fa-angle-double-left mr-1"></i>
-                            Back
+                        <button class="post-back-button btn-sm px-3 py-2">
+                            <span>Back </span>
                         </button>
                     </a>
                 </div>

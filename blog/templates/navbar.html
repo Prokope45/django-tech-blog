@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block navbar %}
 <body>
     <nav class="navbar navbar-expand-sm">
         {% with request.resolver_match.url_name as url_name %}
-            <div class="navbar-brand">
-                <a id="nav-brand"
-                   class="nav-link {% if url_name == 'home' %} active {% endif %}"
+            <div class="navbar-brand row align-items-center">
+                <a class="nav-link {% if url_name == 'home' %} active {% endif %}"
                    href="{% url 'home' %}"
                 >
-                    Jared Paubel
+                    <img class="img-fluid" width="75" src="{% static '/logo/jp_logo.png' %}" />
+                    <!--<h3 class="navbar-name">Jared Paubel</h3>-->
                 </a>
             </div>
 
@@ -39,14 +40,6 @@
                            href="{% url 'gallery' %}"
                         >
                             Gallery
-                        </a>
-                    </li>
-
-                    <li class="nav-item mr-3">
-                        <a class="nav-link {% if url_name == 'contact' %} active {% endif %}"
-                           href="{% url 'contact' %}"
-                        >
-                            Contact
                         </a>
                     </li>
                 </ul>

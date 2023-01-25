@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block gallery %}
+    <head>
+        <title>JPaubel | Gallery Detail</title>
+    </head>
+    <body>
+        {% include 'navbar.html' %}
+        <div id='content'>
+            <div class="container">
+                <div class="text-center m-3 col-md-12 col-sm-12">
+                    <h1>Gallery of {{ object.country }}</h1>
+                    <p>{{ object.content }}</p>
+                </div>
+                {% for gallery in object.galleries.all %}
+                    <h5>{{ gallery }}</h5>
+                    <p>{{ gallery.description }}</p>
+                    <div class="row photo-row mb-3">
+                        {% for photo in gallery.public %}
+                            <a
+                                title="{{ photo.title }} on {{ photo.date_taken }}"
+                                href="{{ photo.get_display_url }}"
+                                data-lightbox="{{ gallery }}"
+                            >
+                                <img class="travel-photo m-2" src="{{ photo.get_thumbnail_url }}"
+                                     alt="{{ photo.title }}: {{ photo.caption }}"
+                                >
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <a href="{% url 'gallery' %}">
+                    <button class="post-back-button btn-sm px-3 py-2">
+                        <span>Back to Main Gallery</span>
+                    </button>
+                </a>
+            </div>
+        </div>
+        {% include 'footer.html' %}
+    </body>
+{% endblock gallery %}

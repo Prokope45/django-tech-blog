@@ -2,7 +2,8 @@
     /* Contact Links */
     --github: #333333;
     --stack-overflow: #ffac44;
-    --slack: #481449;
+    --flickr-blue: #0063DC;
+    --flickr-pink: #FF0084;
     --linkedin: #0082ca;
 
     /* Blue */
@@ -20,6 +21,7 @@
     --light-blue: #A9D6E5;
 
     /* Blue-gray */
+    --dark-blue-gray: #66668F;
     --black-coral: #536271;
     --charcoal: #3E4C5E;
     --gunmetal: #202831;
@@ -33,8 +35,19 @@
     --cultured: #E9ECEF;
     --alice-blue: #DBE9EE;
     --gainsboro: #DEE2E6;
+    --platinum: #EBEBEB;
+    --sea-froth: #D2DCE5;
 
-    /* other */
+    /* gray */
+    --heliotrope: #A69EA9;
     --roman-silver: #84828F;
+
+    /* Red & Pink */
+    --pink-silver: #EBEBEB;
+
+    /* Purple */
+    --cyber-grape: #64528E;
     --old-lavender: #6A687A;
+    --mystic-purple: #39304A;
+    --northern-sea-rock: #3E3F59;
 }

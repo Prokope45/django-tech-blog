@@ -2,56 +2,56 @@
     transition-duration: 0.5s;
 }
 .github > i {
-    color: var(--cultured);
+    color: var(--platinum);
 }
 .github::before {
     box-shadow: inset 0 0 0 3px var(--github);
     background: var(--github);
 }
 .github:hover::before {
-    box-shadow: inset 0 0 0 60px var(--cultured);
+    box-shadow: inset 0 0 0 60px var(--platinum);
 }
 .github:hover > i {
     color: var(--github);
 }
 
 .stack-overflow > i {
-    color: var(--cultured);
+    color: var(--platinum);
 }
 .stack-overflow::before {
     box-shadow: inset 0 0 0 3px var(--stack-overflow);
     background: var(--stack-overflow);
 }
 .stack-overflow:hover::before {
-    box-shadow: inset 0 0 0 60px var(--cultured);
+    box-shadow: inset 0 0 0 60px var(--platinum);
 }
 .stack-overflow:hover > i {
     color: var(--stack-overflow);
 }
 
-.slack > i {
-    color: var(--cultured);
+.flickr > i {
+    color: var(--platinum);
 }
-.slack::before {
-    box-shadow: inset 0 0 0 3px var(--slack);
-    background: var(--slack);
+.flickr::before {
+    box-shadow: inset 0 0 0 3px var(--flickr-pink);
+    background: var(--flickr-pink);
 }
-.slack:hover::before {
-    box-shadow: inset 0 0 0 60px var(--cultured);
+.flickr:hover::before {
+    box-shadow: inset 0 0 0 60px var(--flickr-blue);
 }
-.slack:hover > i {
-    color: var(--slack);
+.flickr:hover > i {
+    color: var(--platinum);
 }
 
 .linkedin > i {
-    color: var(--cultured);
+    color: var(--platinum);
 }
 .linkedin::before {
     box-shadow: inset 0 0 0 3px var(--linkedin);
     background: var(--linkedin);
 }
 .linkedin:hover::before {
-    box-shadow: inset 0 0 0 60px var(--cultured);
+    box-shadow: inset 0 0 0 60px var(--platinum);
 }
 .linkedin:hover > i {
     color: var(--linkedin);

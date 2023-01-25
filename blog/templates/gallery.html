@@ -5,26 +5,40 @@
     </head>
     <body>
         {% include 'navbar.html' %}
-        <div id='content' class="m-5">
+        <div id='content'>
             <div class="container">
-                <h1 class="text-center m-3 col-md-12 col-sm-12">Travel Gallery</h1>
-                {% for image in photo_list %}
-                    <h2>{{ image.title }}</h2>
+                <h1
+                    class="text-center m-3 col-md-12 col-sm-12"
+                >
+                    Travel Gallery
+                </h1>
+                {% for image in gallery_info %}
+                    <h3>{{ image.country }}</h3>
                     <p>{{ image.content }}</p>
-
-                    <!--Gallery-->
-                    <div class="image-row">
-                            {% for photo in image.gallery.public %}
-                                <a title="{{ photo.title }}" href="{{ photo.get_display_url }}"
-                                   data-lightbox="{{ image.gallery.title }}"
+                    {% for gallery in image.galleries.all|slice:":1" %}
+                        <h5>{{ gallery }}</h5>
+                        <p>{{ gallery.description }}</p>
+                        <div class="row photo-row mb-3">
+                            {% for photo in gallery.public|slice:":6" %}
+                                <a
+                                    title="{{ photo.title }} on {{ photo.date_taken }}"
+                                    href="{{ photo.get_display_url }}"
+                                    data-lightbox="{{ gallery }}"
                                 >
-                                    <img class="m-1" src="{{ photo.get_thumbnail_url }}"
-                                         alt="{{ photo.title }}: {{ photo.caption }}"
+                                    <img
+                                        class="travel-photo m-2"
+                                        src="{{ photo.get_thumbnail_url }}"
+                                        alt="{{ photo.title }}: {{ photo.caption }}"
                                     >
                                 </a>
                             {% endfor %}
-                    </div>
-                    <hr>
+                        </div>
+                    {% endfor %}
+                    <a href="{% url 'gallery_detail' image.slug  %}">
+                        <button class="post-button btn-sm px-3 py-2 mb-5">
+                            <span>See more of {{ image.country }}</span>
+                        </button>
+                    </a>
                 {% endfor %}
             </div>
         </div>

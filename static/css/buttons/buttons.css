@@ -1,5 +1,73 @@
-.btn-primary {
-color: var(--alice-blue)  !important;
-background-color: var(--blue-sapphire) !important;
-border-color: #81a1c1 !important;
+.post-button {
+    color: var(--northern-sea-rock);
+    background-color: var(--sea-froth);
+    border-color: var(--old-lavender);
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+}
+
+.post-button:active {
+    transform: scale(1.1);
+    transition: .1s;
+}
+
+.post-button span {
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.post-button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.post-button:hover span {
+    padding-right: 20px;
+}
+
+.post-button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+.post-back-button {
+    color: var(--northern-sea-rock);
+    background-color: var(--sea-froth);
+    border-color: var(--old-lavender);
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+}
+
+.post-back-button:active {
+    transform: scale(1.1);
+    transition: .1;
+}
+
+.post-back-button span {
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.post-back-button span:after {
+    content: '\00AB';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: -5px;
+    transition: 0.5s;
+}
+
+.post-back-button:hover span {
+    padding-left: 25px ;
+}
+
+.post-back-button:hover span:after {
+    opacity: 1;
+    left: 0;
 }

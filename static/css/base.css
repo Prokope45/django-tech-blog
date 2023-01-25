@@ -12,10 +12,13 @@ html {
     height: 100%;
 }
 body {
-   background-color: var(--cultured);
+   background-color: var(--platinum);
    margin:0;
    padding:0;
    height:100%;
+}
+img {
+    pointer-events: none;
 }
 .head_text {
     color: white;
@@ -23,22 +26,44 @@ body {
 #content {
    padding-bottom:60px;
 }
+/* FIXME: Why do these CSS classes not apply directly to the objects? */
+.travel-photo {
+    border-radius: 5px;
+    box-shadow: 0 0 10px 3px Gray;
+    border: 1px #E3E7EB;
+    transition: all .2s ease-in-out;
+}
+.travel-photo:active {
+    transform: scale(.8);
+    transition: .1s;
+}
+@media only screen and (max-width: 600px) {
+    .photo-row {
+        justify-content: center;
+    }
+}
+.post-image {
+    box-shadow: 10px 10px 5px #E3E7EB;
+    border-radius: 16px;
+    border: 1px #E3E7EB;
+    max-width: 500;
+}
 #container {
    min-height:100%;
    position: relative;
 }
 a:visited {
-    color: var(--cultured);
+    color: var(--pink-silver);
     background-color: transparent;
 }
 a:link {
-    color: var(--cultured);
+    color: var(--pink-silver);
     background-color: transparent;
 }
 a:hover {
-    color: var(--dark-sky-blue);
+    color: var(--cyber-grape);
     background-color: transparent;
 }
-a.active {
-    color: var(--dark-sky-blue);
+a:active {
+    color: var(--cyber-grape);
 }
