@@ -4,7 +4,7 @@ from django.contrib import admin
 from django_otp.admin import OTPAdminSite
 from django.urls import path, include
 from django.conf.urls import (
-    handler400, handler403, handler404, handler500
+    handler400, handler404, handler500
 )
 
 # Force TOTP entry for admin login during production
