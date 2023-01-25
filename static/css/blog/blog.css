@@ -1,10 +1,34 @@
 .card {
-    background-color #f9f6f1 !important;
+    background-color var(--sea-froth) !important;
     box-shadow: 0 0 10px 3px rgba(0,0,0,0.1);
 }
-.post-image img {
+.post-image {
     box-shadow: 10px 10px 5px #E3E7EB;
     border-radius: 16px;
     border: 1px #E3E7EB;
     width: 500px;
+}
+html {
+    --tag-bg-color: var(--sea-froth);
+    --tag-font-color: var(--northern-sea-rock);
+}
+#tag a {
+    transition: all .2s ease-in-out;
+}
+#tag a:link {
+    background-color: var(--tag-bg-color);
+    color: var(--tag-font-color);
+    box-shadow: 2px 1px 2px var(--northern-sea-rock);
+}
+#tag a:visited {
+    background-color: var(--tag-bg-color);
+    color: var(--tag-font-color);
+    box-shadow: 2px 1px 2px var(--northern-sea-rock);
+}
+#tag a:hover {
+    transform: scale(1.1);
+}
+#tag a:active {
+    transform: scale(.8);
+    transition: .1s;
 }

@@ -1,6 +1,13 @@
 .h1 {
     margin: 1em !important;
 }
+.image-row > img {
+    transition: all .2s ease-in-out;
+}
+.image-row > img:active {
+    transform: scale(1.1);
+    transition: .1s;
+}
 .scroll_gallery {
     overflow-x: scroll;
 }

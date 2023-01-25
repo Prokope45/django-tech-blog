@@ -7,11 +7,10 @@
     <div id='content'>
         <div class="container">
             <div class="row">
-                <div class="m-3">
+                <div id="tag" class="m-3 row">
+                    <a class="badge badge-pill mb-1 mr-2" href="{% url 'blog' %}">All Posts</a>
                     {% for tag in tag %}
-                    <div class="mb-1 link-light badge bg-secondary">
-                        <a class="h6" href="{% url 'posts_by_tag' tag.slug %}">{{ tag.name }}</a>
-                    </div>
+                        <a class="badge badge-pill mb-1 mr-2" href="{% url 'posts_by_tag' tag.slug %}">{{ tag.name }}</a>
                     {% endfor %}
                 </div>
                 <div class="col-md-12 left">
@@ -23,23 +22,17 @@
 
                                 <p class="card-text">{{ post.content | safe | slice:":200" }}...</p>
 
-                                <div class="mt-3 mb-3">
-                                    <div class="d-flex flex-row">
-                                        <strong class="mr-1">Tags:</strong>
-                                        {% for tag in post.tag.all %}
-                                              <div class="link-light badge bg-secondary mr-1">
-                                                 <a class="h6" href="{% url 'posts_by_tag' tag.slug %}">
-                                                    {{ tag.name }}
-                                                 </a>
-                                              </div>
-                                        {% endfor %}
-                                    </div>
+                                <div id="tag" class="row m-1 mb-2">
+                                    <strong>Tags:</strong>
+                                    {% for tag in post.tag.all %}
+                                         <a class="badge badge-pill m-1" href="{% url 'posts_by_tag' tag.slug %}">
+                                            {{ tag.name }}
+                                         </a>
+                                    {% endfor %}
                                 </div>
-
                                 <a href="{% url 'post_detail' post.slug  %}">
-                                    <button class="btn btn-md btn-primary">
-                                        Read More
-                                        <i class="fa fa-angle-double-right ml-1"></i>
+                                    <button class="post-button btn-sm px-3 py-2">
+                                        <span>Read More </span>
                                     </button>
                                 </a>
                             </div>

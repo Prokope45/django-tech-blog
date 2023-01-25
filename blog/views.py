@@ -14,6 +14,15 @@ from git import Repo
 from .forms import ContactForm
 from .models import IndexDescription, Post, PhotoGallery
 
+# Custom Error Pages
+def custom_page_not_found_view(request, exception):
+    return render(request, "errors/404.html", {})
+
+def custom_error_view(request, exception=None):
+    return render(request, "errors/500.html", {})
+
+def custom_bad_request_view(request, exception=None):
+    return render(request, "errors/400.html", {})
 
 # Index/Home Page
 def index_view(request):
@@ -51,38 +60,16 @@ class PostDetail(DetailView):
 
 
 # Gallery Page
-def gallery_view(request):
-    image_list = PhotoGallery.objects.all()
-    context = {'photo_list': image_list}
-    print(context)
-    return render(request, 'gallery.html', context)
+class Gallery(ListView):
+    model = PhotoGallery
+    template_name = 'gallery.html'
+    queryset = PhotoGallery.objects.all().order_by('country')
+    context_object_name = 'gallery_info'
 
 
-# Contact Page
-def contact_view(request):
-    if request.method == 'POST':
-        data = request.POST.copy()
-        if 'h-captcha-response' in data:
-            data['captcha'] = data['h-captcha-response']
-        form = ContactForm(data)
-        if form.is_valid():
-            form.save()
-            from_email = form.cleaned_data["email"]
-            email_subject = f'New contact {form.cleaned_data["name"]} with email {from_email}: ' \
-                            f'{form.cleaned_data["subject"]}'
-            email_message = form.cleaned_data['message']
-            try:
-                send_mail(email_subject, email_message, settings.DEFAULT_FROM_EMAIL, ['jpaubel@pm.me', settings.DEFAULT_FROM_EMAIL], fail_silently=False)
-            except BadHeaderError:
-                return HttpResponse('Invalid header found.')
-            messages.success(request, 'Message sent!')
-            return redirect('contact')
-        messages.error(request, 'Please complete HCaptcha below.')
-    else:
-        form = ContactForm()
-
-    context = {'form': form}
-    return render(request, 'contact.html', context)
+class GalleryDetail(DetailView):
+    model = PhotoGallery
+    template_name = 'gallery_detail.html'
 
 
 # GitHub-to-PythonAnywhere Update Webhook

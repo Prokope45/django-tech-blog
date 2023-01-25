@@ -3,15 +3,15 @@
    bottom:0;
    width:100%;
    height:60px;
-   background:#6cf;
+   background: var(--northern-sea-rock);
 }
 .page-footer {
-    background-color: var(--gunmetal);
-    color: #d8dee9;
+    background-color: var(--northern-sea-rock);
+    color: var(--platinum);
     padding: 60px 0 30px;
 }
 .footer-copyright {
-    color: #d8dee9;
+    color: var(--platinum);
     padding: 40px 0;
 }
 @media (max-width: 740px) {

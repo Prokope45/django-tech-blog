@@ -2,7 +2,10 @@
 *.jpg
 *.JPG
 *.jpeg
+*.JPEG
 *.png
+*.PNG
+/blog/migrations/
 db.sqlite3
 .idea/
 __pycache__
