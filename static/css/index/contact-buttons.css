@@ -56,3 +56,17 @@
 .linkedin:hover > i {
     color: var(--linkedin);
 }
+
+.medium > i {
+    color: var(--platinum);
+}
+.medium::before {
+    box-shadow: inset 0 0 0 3px var(--medium);
+    background: var(--medium);
+}
+.medium:hover::before {
+    box-shadow: inset 0 0 0 60px var(--platinum);
+}
+.medium:hover > i {
+    color: var(--medium);
+}
