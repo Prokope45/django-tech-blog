@@ -3,10 +3,10 @@
    bottom:0;
    width:100%;
    height:60px;
-   background: var(--northern-sea-rock);
+   background: var(--tekhelet);
 }
 .page-footer {
-    background-color: var(--northern-sea-rock);
+    background-color: var(--iris);
     color: var(--platinum);
     padding: 60px 0 30px;
 }
@@ -21,4 +21,19 @@
     .contact-links {
         margin: 1em;
     }
+}
+#footer a:visited {
+    color: var(--pale-purple);
+    background-color: transparent;
+}
+#footer a:link {
+    color: var(--pale-purple);
+    background-color: transparent;
+}
+#footer a:hover {
+    color: var(--tekhelet);
+    background-color: transparent;
+}
+#footer a:active {
+    color: var(--tekhelet);
 }

@@ -1,20 +1,20 @@
 .nav-link:visited {
-    color: var(--pink-silver) !important;
+    color: var(--indigo) !important;
     background-color: transparent;
 }
 .nav-link:link {
-    color: var(--pink-silver) !important;
+    color: var(--indigo) !important;
     background-color: transparent;
 }
 .nav-link:hover {
-    color: var(--heliotrope) !important;
+    color: var(--tekhelet) !important;
     background-color: transparent;
 }
 .nav-link:active {
-    color: var(--cyber-grape) !important;
+    color: var(--iris) !important;
 }
 .navbar {
-    background: var(--mystic-purple);
+    background: var(--platinum);
 }
 .nav-link,
 .navbar-brand {
