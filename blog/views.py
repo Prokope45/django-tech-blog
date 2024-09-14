@@ -26,12 +26,9 @@ def custom_bad_request_view(request, exception=None):
 
 # Index/Home Page
 def index_view(request):
-    last_two_posts = Post.objects.filter(status=1).order_by('-created_on')
-    last_two_posts_ascending = list(reversed(last_two_posts))[:2]
-
     context = {
         'index_data': IndexDescription.objects.all(),
-        'posts': last_two_posts_ascending
+        'posts': Post.objects.filter(status=1).order_by('-updated_on')[:2]
     }
     return render(request, 'index.html', context)
 
