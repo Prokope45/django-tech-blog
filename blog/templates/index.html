@@ -103,6 +103,26 @@
                 </div>
             </div>
         {% endfor %}
+
+        <div class="container blog-preview">
+            <div class="row">
+                {% for post in posts %}
+                    <div class="card col-md-5 mb-4 mx-1">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ post.title }}</h2>
+                            <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on }} </p>
+
+                            <p class="card-text">
+                                {{ post.content | safe | slice:":200" }}
+                                <a  href="{% url 'post_detail' post.slug  %}">
+                                    Read more...
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </body>
     {% include 'footer.html' %}
 {% endblock index %}

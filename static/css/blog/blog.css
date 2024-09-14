@@ -1,5 +1,4 @@
 .card {
-    background-color var(--sea-froth) !important;
     box-shadow: 0 0 10px 3px rgba(0,0,0,0.1);
 }
 .post-image {
@@ -9,8 +8,8 @@
     width: 500px;
 }
 html {
-    --tag-bg-color: var(--sea-froth);
-    --tag-font-color: var(--northern-sea-rock);
+    --tag-bg-color: var(--tekhelet);
+    --tag-font-color: var(--pale-purple);
 }
 #tag a {
     transition: all .2s ease-in-out;
@@ -18,12 +17,12 @@ html {
 #tag a:link {
     background-color: var(--tag-bg-color);
     color: var(--tag-font-color);
-    box-shadow: 2px 1px 2px var(--northern-sea-rock);
+    /* box-shadow: 2px 1px 2px var(--mystic-purple); */
 }
 #tag a:visited {
     background-color: var(--tag-bg-color);
     color: var(--tag-font-color);
-    box-shadow: 2px 1px 2px var(--northern-sea-rock);
+    /* box-shadow: 2px 1px 2px var(--mystic-purple); */
 }
 #tag a:hover {
     transform: scale(1.1);
