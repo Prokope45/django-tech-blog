@@ -34,6 +34,10 @@
                                     </a>
                                 {% endfor %}
                             </div>
+
+                            {% if gallery.title != object.galleries.all.last.title %}
+                                <hr class="my-4" />
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
