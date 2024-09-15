@@ -13,32 +13,36 @@
                     Travel Gallery
                 </h1>
                 {% for image in gallery_info %}
-                    <h3>{{ image.country }}</h3>
-                    <p>{{ image.content }}</p>
-                    {% for gallery in image.galleries.all|slice:":1" %}
-                        <h5>{{ gallery }}</h5>
-                        <p>{{ gallery.description }}</p>
-                        <div class="row photo-row mb-3">
-                            {% for photo in gallery.public|slice:":6" %}
-                                <a
-                                    title="{{ photo.title }} on {{ photo.date_taken }}"
-                                    href="{{ photo.get_display_url }}"
-                                    data-lightbox="{{ gallery }}"
-                                >
-                                    <img
-                                        class="travel-photo m-2"
-                                        src="{{ photo.get_thumbnail_url }}"
-                                        alt="{{ photo.title }}: {{ photo.caption }}"
-                                    >
-                                </a>
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <h3 class="card-title">{{ image.country }}</h3>
+                            <p class="card-text">{{ image.content }}</p>
+                            {% for gallery in image.galleries.all|slice:":1" %}
+                                <h5 class="card-text">{{ gallery }}</h5>
+                                <p class="card-text">{{ gallery.description }}</p>
+                                <div class="row photo-row mb-2 justify-content-center">
+                                    {% for photo in gallery.public|slice:":6" %}
+                                        <a
+                                            title="{{ photo.title }} on {{ photo.date_taken }}"
+                                            href="{{ photo.get_display_url }}"
+                                            data-lightbox="{{ gallery }}"
+                                        >
+                                            <img
+                                                class="travel-photo mx-1"
+                                                src="{{ photo.get_thumbnail_url }}"
+                                                alt="{{ photo.title }}: {{ photo.caption }}"
+                                            >
+                                        </a>
+                                    {% endfor %}
+                                </div>
                             {% endfor %}
+                            <a href="{% url 'gallery_detail' image.slug  %}">
+                                <button class="post-button btn-sm px-3 py-2">
+                                    <span>See more of {{ image.country }}</span>
+                                </button>
+                            </a>
                         </div>
-                    {% endfor %}
-                    <a href="{% url 'gallery_detail' image.slug  %}">
-                        <button class="post-button btn-sm px-3 py-2 mb-5">
-                            <span>See more of {{ image.country }}</span>
-                        </button>
-                    </a>
+                    </div>
                 {% endfor %}
             </div>
         </div>

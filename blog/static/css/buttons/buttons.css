@@ -1,7 +1,7 @@
 .post-button {
-    color: var(--northern-sea-rock);
-    background-color: var(--sea-froth);
-    border-color: var(--old-lavender);
+    color: var(--iris);
+    background-color: var(--pale-purple);
+    border-color: var(--russian-violet);
     text-align: center;
     transition: all 0.2s ease-in-out;
 }
@@ -36,9 +36,9 @@
 }
 
 .post-back-button {
-    color: var(--northern-sea-rock);
-    background-color: var(--sea-froth);
-    border-color: var(--old-lavender);
+    color: var(--iris);
+    background-color: var(--pale-purple);
+    border-color: var(--russian-violet);
     text-align: center;
     transition: all 0.2s ease-in-out;
 }
