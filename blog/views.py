@@ -14,6 +14,8 @@ from git import Repo
 from .forms import ContactForm
 from .models import IndexDescription, Post, PhotoGallery
 
+from photologue.models import Gallery, Photo
+
 # Custom Error Pages
 def custom_page_not_found_view(request, exception):
     return render(request, "errors/404.html", {})
