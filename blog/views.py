@@ -78,12 +78,12 @@ class GalleryDetail(DetailView):
     template_name = 'gallery_detail.html'
 
 def search(request):
+    # TODO: Implement search in gallery and index pages.
     query = request.GET.get('q')
     results = []
 
     if query:
         tag_ids = TaggedItem.objects.filter(tag__name__icontains=query).values_list('object_id', flat=True)
-
 
         results = Post.objects.filter(
             Q(title__icontains=query) |
