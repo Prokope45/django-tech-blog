@@ -18,6 +18,7 @@ handler500 = 'apps.common.views.custom_error_view'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("oidc/", include("mozilla_django_oidc.urls")),
+    path('', include('api.urls')),
     path('', include('apps.index.urls')),
     path('', include('apps.common.urls')),
     path('blog/', include('apps.blog.urls')),
