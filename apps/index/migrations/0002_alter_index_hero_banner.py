@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
             model_name="index",
             name="hero_banner",
             field=models.ImageField(
-                default="/images/default/default_hero_banner.webp", upload_to="images"
+                default="images/default/default_hero_banner.webp", upload_to="images"
             ),
         ),
     ]
