@@ -11,11 +11,11 @@ class Index(models.Model):
 
     hero_banner = models.ImageField(
         upload_to="images",
-        default="/images/default/default_hero_banner.webp"
+        default="images/default/default_hero_banner.webp"
     )
     hero_image = models.ImageField(
         upload_to="images",
-        default="/images/default/default_hero_image.png"
+        default="images/default/default_hero_image.png"
     )
 
     greeting_title = models.CharField(
@@ -35,7 +35,7 @@ class Index(models.Model):
     )
     about_me_description = models.TextField(
         default=(
-            "I\'m from Kansas, served in the Marines, and work as a software ",
+            "I\'m from Kansas, served in the Marines, and work as a software "
             "developer intern while studying at Kansas State University"
         ),
         null=True
