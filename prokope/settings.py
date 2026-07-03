@@ -86,13 +86,41 @@ INSTALLED_APPS = [
     'django_otp.plugins.otp_totp',
     'taggit',
     'storages',
-    "mozilla_django_oidc"
+    "mozilla_django_oidc",
+    "rest_framework",
+    "rest_framework.authtoken",
+    "django_filters",
+    "drf_spectacular",
 ]
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "apps.oidc.backends.PocketIDBackend"
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticatedOrReadOnly",
+    ],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 20,
+    "DEFAULT_FILTER_BACKENDS": [
+        "django_filters.rest_framework.DjangoFilterBackend",
+        "rest_framework.filters.SearchFilter",
+        "rest_framework.filters.OrderingFilter",
+    ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Prokope API",
+    "DESCRIPTION": "REST API for Prokope personal portfolio and travel blog",
+    "VERSION": "1.0.0",
+}
 
 LOGIN_REDIRECT_URL = "/admin/"
 LOGOUT_REDIRECT_URL = "/admin/"
@@ -173,6 +201,21 @@ def default_database_config() -> dict[str, str]:
     }
 
 
+def development_database_config() -> dict[str, str]:
+    # NOTE: Spin up pgsql docker container for local dev use
+    print("NOTE: Using local Postgres DB for development.")
+    return {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'dev_db',
+            'USER': 'user',
+            'PASSWORD': 'password',
+            'HOST': 'dev_db',
+            'PORT': '5432',
+        }
+    }
+
+
 def parse_db_uri():
     if url := os.environ['DATABASE_URL']:
         print("Using database URI...")
@@ -206,14 +249,13 @@ if IS_HEROKU_APP:
     DATABASES = {
         'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
     }
-elif ENVIRONMENT == 'QA':
-    if 'test' in sys.argv or 'test_coverage' in sys.argv:
-        DATABASES = default_database_config()
-    else:
-        print("NOTE: Connected to PRODUCTION database.")
-        DATABASES = parse_db_uri()
+elif 'test' in sys.argv or 'test_coverage' in sys.argv:
+    DATABASES = default_database_config()  # tests use test_db
+elif ENVIRONMENT == 'development':
+    DATABASES = development_database_config()  # local dev uses dev_db
 else:
-    DATABASES = default_database_config()
+    print("NOTE: Connected to PRODUCTION database.")
+    DATABASES = parse_db_uri()
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

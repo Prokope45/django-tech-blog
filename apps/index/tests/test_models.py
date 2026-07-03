@@ -17,31 +17,31 @@ class IndexModelTest(TestCase):
     def test_default_hero_banner(self):
         self.assertEqual(
             self.__index.hero_banner.name,
-            "/images/default/default_hero_banner.webp"
+            "images/default/default_hero_banner.webp"
         )
 
     def test_set_hero_banner(self):
         index = Index.objects.create(
-            hero_banner="/images/default/some_other_image.png"
+            hero_banner="images/default/some_other_image.png"
         )
         self.assertEqual(
             index.hero_banner.name,
-            "/images/default/some_other_image.png"
+            "images/default/some_other_image.png"
         )
 
     def test_default_hero_image(self):
         self.assertEqual(
             self.__index.hero_image.name,
-            "/images/default/default_hero_image.png"
+            "images/default/default_hero_image.png"
         )
 
     def test_set_hero_image(self):
         index = Index.objects.create(
-            hero_image="/images/default/some_other_image.png"
+            hero_image="images/default/some_other_image.png"
         )
         self.assertEqual(
             index.hero_image.name,
-            "/images/default/some_other_image.png"
+            "images/default/some_other_image.png"
         )
 
     def test_default_greeting_title(self):
