@@ -22,7 +22,7 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 ENVIRONMENT = os.environ.get("ENVIRONMENT", "development")
-DEBUG = ENVIRONMENT == "QA"
+DEBUG = ENVIRONMENT in ['QA', 'development']
 CONNECTED_TO_PRODUCTION_DB = ENVIRONMENT == "production"
 
 # The `DYNO` env var is set on Heroku CI, but it's not a real Heroku app, so we have to
@@ -175,6 +175,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'apps.common.context_processors.environment_info',
             ]
         },
     },
@@ -187,7 +188,7 @@ WSGI_APPLICATION = 'prokope.wsgi.application'
 
 
 def test_database_config() -> dict[str, str]:
-    print("NOTE: Using 'test_db' database for testing.")
+    print("NOTE: Using 'test_db' database for testing and development.")
     return {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -201,7 +202,7 @@ def test_database_config() -> dict[str, str]:
 
 
 def development_database_config() -> dict[str, str]:
-    print("NOTE: Using 'dev_db' database for development.\n This is a copy of the production database.")
+    print("NOTE: Using 'dev_db' database for QA testing.\n This is a copy of the production database.")
     return {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -247,9 +248,9 @@ if IS_HEROKU_APP:
     DATABASES = {
         'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
     }
-elif 'test' in sys.argv or 'test_coverage' in sys.argv:
+elif ENVIRONMENT == 'development' or ('test' in sys.argv or 'test_coverage' in sys.argv):
     DATABASES = test_database_config()  # tests use test_db
-elif ENVIRONMENT in ['development', 'QA']:
+elif ENVIRONMENT == 'QA':
     DATABASES = development_database_config()  # local dev uses dev_db (local copy of prod)
 else:
     print("NOTE: Connected to PRODUCTION database.")
