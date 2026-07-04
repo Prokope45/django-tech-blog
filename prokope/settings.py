@@ -23,7 +23,7 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 ENVIRONMENT = os.environ.get("ENVIRONMENT", "development")
 DEBUG = ENVIRONMENT == "QA"
-CONNECTED_TO_PRODUCTION_DB = ENVIRONMENT == "production" or ENVIRONMENT == "QA"
+CONNECTED_TO_PRODUCTION_DB = ENVIRONMENT == "production"
 
 # The `DYNO` env var is set on Heroku CI, but it's not a real Heroku app, so we have to
 # also explicitly exclude CI:
@@ -186,9 +186,8 @@ WSGI_APPLICATION = 'prokope.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-def default_database_config() -> dict[str, str]:
-    # NOTE: Spin up pgsql docker container
-    print("NOTE: Using local Postgres DB for testing.")
+def test_database_config() -> dict[str, str]:
+    print("NOTE: Using 'test_db' database for testing.")
     return {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -202,8 +201,7 @@ def default_database_config() -> dict[str, str]:
 
 
 def development_database_config() -> dict[str, str]:
-    # NOTE: Spin up pgsql docker container for local dev use
-    print("NOTE: Using local Postgres DB for development.")
+    print("NOTE: Using 'dev_db' database for development.\n This is a copy of the production database.")
     return {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -250,9 +248,9 @@ if IS_HEROKU_APP:
         'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
     }
 elif 'test' in sys.argv or 'test_coverage' in sys.argv:
-    DATABASES = default_database_config()  # tests use test_db
-elif ENVIRONMENT == 'development':
-    DATABASES = development_database_config()  # local dev uses dev_db
+    DATABASES = test_database_config()  # tests use test_db
+elif ENVIRONMENT in ['development', 'QA']:
+    DATABASES = development_database_config()  # local dev uses dev_db (local copy of prod)
 else:
     print("NOTE: Connected to PRODUCTION database.")
     DATABASES = parse_db_uri()
