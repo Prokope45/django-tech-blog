@@ -3,6 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django_otp.admin import OTPAdminSite
 from django.urls import path, include
+from django.views.generic.base import RedirectView
 
 # FIXME: may be deprecated
 # Force TOTP entry for admin login during production
@@ -18,6 +19,8 @@ handler500 = 'apps.common.views.custom_error_view'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("oidc/", include("mozilla_django_oidc.urls")),
+    path('swagger/', RedirectView.as_view(url='/api/docs/', permanent=False), name='swagger'),
+    path('docs/', RedirectView.as_view(url='/api/docs/', permanent=False), name='docs'),
     path('', include('api.urls')),
     path('', include('apps.index.urls')),
     path('', include('apps.common.urls')),
