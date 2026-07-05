@@ -1,10 +1,10 @@
 from django.views.defaults import (
     page_not_found, bad_request, server_error, permission_denied
 )
-
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.db.models import Q
+from django.conf import settings
 
 from taggit.models import TaggedItem
 import re
@@ -113,3 +113,6 @@ def tailscale_webfinger(request: HttpRequest):
         ],
         "Access-Control-Allow-Origin": "*"
     })
+
+
+

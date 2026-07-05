@@ -5,8 +5,9 @@
 
 # Get the directory of the script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ROOT_DIR="$(dirname "$SCRIPT_DIR")"
-PROJECT_DIR="$ROOT_DIR/prokope"
+BACKEND_DIR="$(dirname "$SCRIPT_DIR")"
+ROOT_DIR="$(dirname "$BACKEND_DIR")"
+PROJECT_DIR="$BACKEND_DIR/prokope"
 SETTINGS_FILE="$PROJECT_DIR/settings.py"
 
 # --- Portable in-place sed: GNU sed (Linux/devcontainer) vs BSD sed (macOS) ---
@@ -97,7 +98,7 @@ APPS=(
 )
 # "apps.admin"  # FIXME: NEEDS TESTS
 
-cd "$ROOT_DIR" || { echo "Error: Failed to navigate to project root."; exit 1; }
+cd "$BACKEND_DIR" || { echo "Error: Failed to navigate to backend directory."; exit 1; }
 
 # Clean previous coverage data
 uv run coverage erase
@@ -173,5 +174,5 @@ cat << "EOF"
                                              \/_/         
 EOF
 
-cd "$ROOT_DIR" || exit 1
+cd "$BACKEND_DIR" || exit 1
 uv run python3 manage.py runserver

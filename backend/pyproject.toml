@@ -70,6 +70,7 @@ dependencies = [
     "webencodings==0.5.1",
     "wheel==0.44.0",
     "whitenoise==6.9.0",
+    "django-cors-headers>=4.9.0",
 ]
 
 [dependency-groups]
