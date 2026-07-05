@@ -11,10 +11,11 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from django.contrib import messages
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATES_DIRS = os.path.join(BASE_DIR, 'templates')
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BACKEND_DIR = os.path.join(BASE_DIR, 'backend')
+TEMPLATES_DIRS = os.path.join(BACKEND_DIR, 'templates')
 
-dotenv_file = os.path.join(BASE_DIR, ".env")
+dotenv_file = os.path.join(BACKEND_DIR, ".env")
 if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file, override=True)
 
@@ -72,6 +73,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'corsheaders',
     'hcaptcha',
     'crispy_forms',
     'django_summernote',
@@ -122,6 +124,14 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "1.0.0",
 }
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+CORS_ALLOW_CREDENTIALS = True
+
+REACT_FRONTEND_ENABLED = os.environ.get("REACT_FRONTEND_ENABLED", "False") == "True"
+
 LOGIN_REDIRECT_URL = "/admin/"
 LOGOUT_REDIRECT_URL = "/admin/"
 
@@ -149,8 +159,10 @@ SITE_ID = 1
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'apps.common.middleware.SPAMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -293,10 +305,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BACKEND_DIR, 'static'),
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+if REACT_FRONTEND_ENABLED:
+    STATICFILES_DIRS.insert(0, os.path.join(BASE_DIR, 'frontend', 'dist'))
+
+STATIC_ROOT = os.path.join(BACKEND_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -330,7 +345,7 @@ else:
     MEDIA_URL = '/media/'
 
 # Path where media is stored
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BACKEND_DIR, 'media/')
 
 
 # For Summernote WYSIWYG

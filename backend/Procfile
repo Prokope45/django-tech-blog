@@ -1,1 +1,1 @@
-web: gunicorn prokope.wsgi
+web: cd backend && gunicorn prokope.wsgi
