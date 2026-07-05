@@ -201,7 +201,7 @@ def test_database_config() -> dict[str, str]:
     }
 
 
-def development_database_config() -> dict[str, str]:
+def qa_database_config() -> dict[str, str]:
     print("NOTE: Using 'dev_db' database for QA testing.\n This is a copy of the production database.")
     return {
         'default': {
@@ -215,7 +215,7 @@ def development_database_config() -> dict[str, str]:
     }
 
 
-def parse_db_uri():
+def prod_database_config():
     if url := os.environ['DATABASE_URL']:
         print("Using database URI...")
         parsed = urlparse(url)
@@ -249,12 +249,12 @@ if IS_HEROKU_APP:
         'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
     }
 elif ENVIRONMENT == 'development' or ('test' in sys.argv or 'test_coverage' in sys.argv):
-    DATABASES = test_database_config()  # tests use test_db
+    DATABASES = test_database_config()
 elif ENVIRONMENT == 'QA':
-    DATABASES = development_database_config()  # local dev uses dev_db (local copy of prod)
-else:
+    DATABASES = qa_database_config()
+elif ENVIRONMENT == 'production':
     print("NOTE: Connected to PRODUCTION database.")
-    DATABASES = parse_db_uri()
+    DATABASES = prod_database_config()
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
