@@ -22,8 +22,8 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 ENVIRONMENT = os.environ.get("ENVIRONMENT", "development")
-DEBUG = ENVIRONMENT == "QA"
-CONNECTED_TO_PRODUCTION_DB = ENVIRONMENT == "production" or ENVIRONMENT == "QA"
+DEBUG = ENVIRONMENT in ['QA', 'development']
+CONNECTED_TO_PRODUCTION_DB = ENVIRONMENT == "production"
 
 # The `DYNO` env var is set on Heroku CI, but it's not a real Heroku app, so we have to
 # also explicitly exclude CI:
@@ -86,13 +86,41 @@ INSTALLED_APPS = [
     'django_otp.plugins.otp_totp',
     'taggit',
     'storages',
-    "mozilla_django_oidc"
+    "mozilla_django_oidc",
+    "rest_framework",
+    "rest_framework.authtoken",
+    "django_filters",
+    "drf_spectacular",
 ]
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "apps.oidc.backends.PocketIDBackend"
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticatedOrReadOnly",
+    ],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 20,
+    "DEFAULT_FILTER_BACKENDS": [
+        "django_filters.rest_framework.DjangoFilterBackend",
+        "rest_framework.filters.SearchFilter",
+        "rest_framework.filters.OrderingFilter",
+    ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Prokope API",
+    "DESCRIPTION": "REST API for Prokope personal portfolio and travel blog",
+    "VERSION": "1.0.0",
+}
 
 LOGIN_REDIRECT_URL = "/admin/"
 LOGOUT_REDIRECT_URL = "/admin/"
@@ -147,6 +175,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'apps.common.context_processors.environment_info',
             ]
         },
     },
@@ -158,9 +187,8 @@ WSGI_APPLICATION = 'prokope.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-def default_database_config() -> dict[str, str]:
-    # NOTE: Spin up pgsql docker container
-    print("NOTE: Using local Postgres DB for testing.")
+def test_database_config() -> dict[str, str]:
+    print("NOTE: Using 'test_db' database for testing and development.")
     return {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -173,7 +201,21 @@ def default_database_config() -> dict[str, str]:
     }
 
 
-def parse_db_uri():
+def qa_database_config() -> dict[str, str]:
+    print("NOTE: Using 'dev_db' database for QA testing.\n This is a copy of the production database.")
+    return {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'dev_db',
+            'USER': 'user',
+            'PASSWORD': 'password',
+            'HOST': 'dev_db',
+            'PORT': '5432',
+        }
+    }
+
+
+def prod_database_config():
     if url := os.environ['DATABASE_URL']:
         print("Using database URI...")
         parsed = urlparse(url)
@@ -206,14 +248,13 @@ if IS_HEROKU_APP:
     DATABASES = {
         'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
     }
+elif ENVIRONMENT == 'development' or ('test' in sys.argv or 'test_coverage' in sys.argv):
+    DATABASES = test_database_config()
 elif ENVIRONMENT == 'QA':
-    if 'test' in sys.argv or 'test_coverage' in sys.argv:
-        DATABASES = default_database_config()
-    else:
-        print("NOTE: Connected to PRODUCTION database.")
-        DATABASES = parse_db_uri()
-else:
-    DATABASES = default_database_config()
+    DATABASES = qa_database_config()
+elif ENVIRONMENT == 'production':
+    print("NOTE: Connected to PRODUCTION database.")
+    DATABASES = prod_database_config()
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

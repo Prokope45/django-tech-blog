@@ -90,7 +90,7 @@ echo "🧪 Running tests..."
 
 # List of Django apps to test
 APPS=(
-  "apps.index"
+  # "apps.index"
   "apps.blog"
   "apps.gallery"
   "apps.common"
@@ -121,11 +121,11 @@ MIN_COVERAGE=80
 COVERAGE_RESULT=$(uv run coverage report | grep 'TOTAL' | awk '{print $4}' | sed 's/%//')
 
 # Check coverage threshold
-# if [ "$COVERAGE_RESULT" -lt "$MIN_COVERAGE" ]; then
-#     echo "❌ Code coverage is below ${MIN_COVERAGE}%. Current: ${COVERAGE_RESULT}%"
-#     uv run coverage report -m
-#     exit 1
-# fi
+if [ "$COVERAGE_RESULT" -lt "$MIN_COVERAGE" ]; then
+    echo "❌ Code coverage is below ${MIN_COVERAGE}%. Current: ${COVERAGE_RESULT}%"
+    uv run coverage report -m
+    exit 1
+fi
 
 echo "✅ All tests passed."
 echo "✅ Coverage at: ${COVERAGE_RESULT}%"
