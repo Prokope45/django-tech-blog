@@ -20,6 +20,16 @@
                 </a>
             </div>
 
+            {% if environment_name == 'QA' %}
+                <span class="badge badge-warning ml-2">
+                    QA · {{ database_label }}
+                </span>
+            {% elif environment_name == 'development' %}
+                <span class="badge badge-info ml-2">
+                    Development · {{ database_label }}
+                </span>
+            {% endif %}
+
             <button
                 class="navbar-toggler navbar-light custom-toggler"
                 type="button"

@@ -7,7 +7,7 @@
   "shutdownAction": "stopCompose",
  
   // Installs deps (including the dev group) into /workspace/.venv on container create
-  "postCreateCommand": "uv sync --frozen --all-groups || uv sync --all-groups",
+  "postCreateCommand": "bash .devcontainer/../scripts/post-create.sh",
  
   "remoteEnv": {
     "DATABASE_URL": "postgres://user:password@db:5432/test_db"
