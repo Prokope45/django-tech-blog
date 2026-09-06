@@ -12,6 +12,9 @@ cd backend && uv run python manage.py runserver
 # Terminal 2 — React dev server
 cd frontend && npm run dev
 
+# If Django runs on a non-default port (e.g. the QA server uses 8001):
+cd frontend && VITE_PROXY_TARGET=http://localhost:8001 npm run dev
+
 Production — single server (Django serves React):
 cd frontend && npm run build
 cd backend && REACT_FRONTEND_ENABLED=True uv run python manage.py runserver

@@ -1,79 +1,92 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, Footer } from '../components/layout/BaseLayout';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { getAlbums } from '../api/gallery';
-import type { CountryAlbumList } from '../types/api';
+import type { CountryAlbumList, CityPhoto } from '../types/api';
 
 export default function GalleryList() {
   const [albums, setAlbums] = useState<CountryAlbumList[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getAlbums().then(data => {
-      setAlbums(data);
-      setLoading(false);
-    });
+    document.title = 'Prokope | Gallery';
   }, []);
 
   useEffect(() => {
-    if (loading || albums.length === 0) return;
-    const carouselElements = document.querySelectorAll('#hover-carousel');
-    carouselElements.forEach(carouselEl => {
-      const carousel = new (window as any).bootstrap.Carousel(carouselEl, {
-        interval: 1500,
-        ride: false,
-        pause: false,
-        wrap: true,
-      });
-      carouselEl.addEventListener('mouseenter', () => {
-        carousel.next();
-        carousel.cycle();
-      });
-      carouselEl.addEventListener('mouseleave', () => {
-        carousel.pause();
-      });
-    });
-  }, [loading, albums]);
+    getAlbums()
+      .then(data => setAlbums(data))
+      .catch(() => setAlbums([]))
+      .finally(() => setLoading(false));
+  }, []);
 
   if (loading) return <LoadingSpinner />;
 
   return (
-    <>
-      <Navbar />
-      <div id="content" className="mt-4">
-        <div className="container">
-          <h1 className="text-center mb-4">Travel Gallery</h1>
-          <div className="row justify-content-center">
-            {albums.map(album => {
-              const firstGallery = album.city_galleries?.[0];
-              if (!firstGallery) return null;
-              return (
-                <Link
-                  key={album.id}
-                  id="carousel-link"
-                  className="col-lg-3 col-md-4 col-sm-6 col-xs-6 p-0 m-2"
-                  to={`/gallery/${album.slug}/`}
-                >
-                  <div id="hover-carousel" className="carousel slide">
-                    <div className="carousel-inner">
-                      <div className="carousel-caption d-flex h-100 align-items-center justify-content-center">
-                        <h5>{album.country}</h5>
-                      </div>
-                      {firstGallery.city_photos.slice(0, 5).map((photo, idx) => (
-                        <div key={idx} className={`carousel-item ${idx === 0 ? 'active' : ''}`}>
-                          <img src={photo.get_display_url} className="d-block w-100" alt={photo.title} />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
+    <div className="mt-4">
+      <div className="container">
+        <h1 className="text-center mb-4">Travel Gallery</h1>
+        <div className="row justify-content-center">
+          {albums.map(album => {
+            const firstGallery = album.city_galleries?.find(g => g.city_photos.length > 0);
+            if (!firstGallery) return null;
+            return (
+              <Link
+                key={album.id}
+                id="carousel-link"
+                className="col-lg-3 col-md-4 col-sm-6 col-xs-6 p-0 m-2"
+                to={`/gallery/${album.slug}`}
+              >
+                <AlbumCarousel photos={firstGallery.city_photos.slice(0, 5)} country={album.country} />
+              </Link>
+            );
+          })}
         </div>
       </div>
-      <Footer />
-    </>
+    </div>
+  );
+}
+
+function AlbumCarousel({ photos, country }: { photos: CityPhoto[]; country: string }) {
+  const [active, setActive] = useState(0);
+  const timerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) window.clearInterval(timerRef.current);
+    };
+  }, []);
+
+  const start = () => {
+    stop();
+    timerRef.current = window.setInterval(() => {
+      setActive(prev => (prev + 1) % photos.length);
+    }, 1500);
+  };
+
+  const stop = () => {
+    if (timerRef.current) {
+      window.clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  };
+
+  return (
+    <div
+      id="hover-carousel"
+      className="carousel slide"
+      onMouseEnter={start}
+      onMouseLeave={stop}
+    >
+      <div className="carousel-inner">
+        <div className="carousel-caption d-flex h-100 align-items-center justify-content-center">
+          <h5>{country}</h5>
+        </div>
+        {photos.map((photo, idx) => (
+          <div key={photo.id} className={`carousel-item ${idx === active ? 'active' : ''}`}>
+            <img src={photo.get_display_url} className="d-block w-100" alt={photo.title} loading="lazy" />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }

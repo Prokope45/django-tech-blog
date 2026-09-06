@@ -1,6 +1,12 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import client from '../../api/client';
 import { useTheme } from '../../context/ThemeContext';
+
+interface EnvInfo {
+  environment: string;
+  database_label: string;
+}
 
 export default function Navbar() {
   const location = useLocation();
@@ -8,18 +14,23 @@ export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const [searchQuery, setSearchQuery] = useState('');
   const [collapsed, setCollapsed] = useState(true);
-  const [env] = useState(() => {
-    const params = new URLSearchParams(window.location.search);
-    return {
-      name: params.get('env') || 'development',
-      db: params.get('db') || '',
-    };
-  });
+  const [env, setEnv] = useState<EnvInfo>({ environment: '', database_label: '' });
 
-  const isActive = (path: string) => {
-    if (path === '/') return location.pathname === '/';
-    return location.pathname.startsWith(path);
-  };
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const queryEnv = params.get('env');
+    const queryDb = params.get('db');
+    if (queryEnv) {
+      setEnv({ environment: queryEnv, database_label: queryDb || '' });
+      return;
+    }
+    client.get<EnvInfo>('/environment/')
+      .then(res => setEnv(res.data))
+      .catch(() => {});
+  }, []);
+
+  const isActive = (path: string) =>
+    path === '/' ? location.pathname === '/' : location.pathname.startsWith(path);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,41 +39,35 @@ export default function Navbar() {
     }
   };
 
+  const activeClass = (path: string) => (isActive(path) && !(path === '/' && location.pathname !== '/') ? 'active' : '');
+
   return (
-    <nav className="navbar navbar-expand-sm" style={{
-      backgroundColor: 'var(--navbar-bg-color)',
-      color: 'var(--navbar-text-color)',
-      transition: 'all 0.3s ease',
-    }}>
+    <nav className="navbar navbar-expand-sm bg-[var(--navbar-bg-color)] text-[var(--navbar-text-color)]">
       <div className="navbar-brand row align-items-center">
-        <Link
-          to="/"
-          className={`nav-link ${isActive('/') && location.pathname === '/' ? 'active' : ''}`}
-          style={{ cursor: 'pointer' }}
-        >
+        <Link to="/" className={`nav-link ${activeClass('/')}`} aria-label="Prokope home">
           <img
             id="brand-logo"
             className="img-fluid"
             width="150"
-            src={theme === 'dark' ? '/static/logo/prokope-dark.png' : '/static/logo/prokope-light.png'}
-            data-light-logo="/static/logo/prokope-light.png"
-            data-dark-logo="/static/logo/prokope-dark.png"
+            src={theme === 'dark' ? '/logo/prokope-dark.png' : '/logo/prokope-light.png'}
+            data-light-logo="/logo/prokope-light.png"
+            data-dark-logo="/logo/prokope-dark.png"
             alt="Prokope"
           />
         </Link>
       </div>
 
-      {env.name === 'QA' && (
-        <span className="badge badge-warning ml-2">QA · {env.db}</span>
+      {env.environment === 'QA' && (
+        <span className="badge badge-warning ml-2">QA · {env.database_label}</span>
       )}
-      {env.name === 'development' && (
-        <span className="badge badge-info ml-2">Development · {env.db}</span>
+      {env.environment === 'development' && (
+        <span className="badge badge-info ml-2">Development · {env.database_label}</span>
       )}
 
       <button
         className="navbar-toggler navbar-light custom-toggler"
         type="button"
-        onClick={() => setCollapsed(!collapsed)}
+        onClick={() => setCollapsed(prev => !prev)}
         aria-controls="main-navigation"
         aria-expanded={!collapsed}
         aria-label="Toggle navigation"
@@ -75,23 +80,17 @@ export default function Navbar() {
       <div className={`collapse navbar-collapse ${!collapsed ? 'show' : ''}`} id="main-navigation">
         <ul className="navbar-nav">
           <li className="nav-item mr-3">
-            <Link
-              to="/blog"
-              className={`nav-link ${isActive('/blog') ? 'active' : ''}`}
-            >
+            <Link to="/blog" className={`nav-link ${activeClass('/blog')}`}>
               Blog
             </Link>
           </li>
           <li className="nav-item mr-3">
-            <Link
-              to="/gallery"
-              className={`nav-link ${isActive('/gallery') ? 'active' : ''}`}
-            >
+            <Link to="/gallery" className={`nav-link ${activeClass('/gallery')}`}>
               Gallery
             </Link>
           </li>
           <li className="nav-item d-flex align-items-center">
-            <span style={{ width: '100%' }}>
+            <span className="w-full md:w-40 lg:w-56">
               <form className="d-flex" onSubmit={handleSearch}>
                 <input
                   id="search-bar"
@@ -107,9 +106,10 @@ export default function Navbar() {
             </span>
             <button
               id="darkModeToggle"
+              type="button"
               className="btn btn-outline-secondary"
               onClick={toggleTheme}
-              style={{ border: 'none', background: 'none', fontSize: '1.5rem', minWidth: 48, cursor: 'pointer' }}
+              aria-label="Toggle dark mode"
             >
               <i id="darkModeIcon" className={`fa ${theme === 'dark' ? 'fa-sun-o' : 'fa-moon-o'}`}></i>
             </button>

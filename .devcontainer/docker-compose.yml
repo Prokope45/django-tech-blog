@@ -7,6 +7,8 @@ services:
       # Mount the whole repo (parent of .devcontainer) into /workspace
       - ..:/workspace:cached
     command: sleep infinity
+    ports:
+      - "5173:5173"
     environment:
       DJANGO_SETTINGS_MODULE: "prokope.settings"
     depends_on:

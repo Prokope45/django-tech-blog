@@ -1,5 +1,6 @@
 import re
 
+from django.conf import settings
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
@@ -14,6 +15,22 @@ from apps.common.api.serializers import (
     BlogSearchSerializer,
     GallerySearchSerializer,
 )
+
+
+class EnvironmentAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        env = settings.ENVIRONMENT
+        db_labels = {
+            'production': 'Production DB',
+            'QA': 'Prod Copy DB',
+            'development': 'Test DB',
+        }
+        return Response({
+            'environment': env,
+            'database_label': db_labels.get(env, 'Unknown'),
+        })
 
 
 class SearchAPIView(APIView):

@@ -5,21 +5,21 @@
       "name": "Run server (QA mode, no args)",
       "type": "node-terminal",
       "request": "launch",
-      "command": "${workspaceFolder}/scripts/runserver.sh",
+      "command": "${workspaceFolder}/backend/scripts/runserver.sh",
       "cwd": "${workspaceFolder}"
     },
     {
       "name": "Run server (--debug)",
       "type": "node-terminal",
       "request": "launch",
-      "command": "${workspaceFolder}/scripts/runserver.sh --debug",
+      "command": "${workspaceFolder}/backend/scripts/runserver.sh --debug",
       "cwd": "${workspaceFolder}"
     },
     {
       "name": "Run server (--test)",
       "type": "node-terminal",
       "request": "launch",
-      "command": "${workspaceFolder}/scripts/runserver.sh --test",
+      "command": "${workspaceFolder}/backend/scripts/runserver.sh --test",
       "cwd": "${workspaceFolder}"
     },
     {
@@ -37,19 +37,20 @@
           "remoteRoot": "."
         }
       ]
+    },
+    {
+      "name": "Frontend: Debug (Vite + Firefox)",
+      "type": "firefox",
+      "request": "launch",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/frontend",
+      "reAttach": true,
+      "preLaunchTask": "npm: dev (frontend)",
+      "serverReadyAction": {
+        "pattern": "Local:\\s+http://localhost:([0-9]+)",
+        "uriFormat": "http://localhost:%s",
+        "action": "openExternally"
+      }
     }
-    // {
-    //   "name": "Frontend: Debug Browser",
-    //   "type": "firefox",
-    //   "request": "launch",
-    //   "url": "http://0.0.0.0:5173",
-    //   "webRoot": "${workspaceFolder}/frontend",
-    //   "reAttach": true,
-    //   "serverReadyAction": {
-    //     "pattern": "Local:\\s+http://0.0.0.0:([0-9]+)",
-    //     "uriFormat": "http://0.0.0.0:%s",
-    //     "action": "openExternally"
-    //   },
-    // }
   ]
 }
