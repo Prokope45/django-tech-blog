@@ -6,16 +6,18 @@
   "workspaceFolder": "/workspace",
   "shutdownAction": "stopCompose",
  
-  // Installs deps (including the dev group) into /workspace/.venv on container create
-  "postCreateCommand": "bash .devcontainer/../scripts/post-create.sh",
+  // Installs deps (including the dev group) into /workspace/.venv on container create,
+  // then installs frontend npm dependencies
+  "postCreateCommand": "bash .devcontainer/../backend/scripts/post-create.sh; (cd frontend && npm install)",
  
   "remoteEnv": {
     "DATABASE_URL": "postgres://user:password@db:5432/test_db"
   },
  
-  "forwardPorts": [8000, 5432],
+  "forwardPorts": [8000, 5173, 5432],
   "portsAttributes": {
     "8000": { "label": "Django dev server" },
+    "5173": { "label": "Frontend (Vite dev server)" },
     "5432": { "label": "Postgres test DB" }
   },
  
@@ -36,7 +38,10 @@
     }
   },
   "features": {
-    "ghcr.io/danzilberdan/devcontainers/opencode:0": {}
+    "ghcr.io/danzilberdan/devcontainers/opencode:0": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    }
   },
   "mounts": [
     {

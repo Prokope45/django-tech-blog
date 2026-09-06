@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Navbar, Footer } from '../components/layout/BaseLayout';
 
 interface ErrorPageProps {
@@ -37,12 +38,12 @@ const errorConfig: Record<string, ErrorPageProps> = {
 export default function ErrorPage({ code = 404 }: { code?: number }) {
   const config = errorConfig[String(code)] || errorConfig['404'];
 
+  useEffect(() => {
+    document.title = config.title;
+  }, [config.title]);
+
   return (
     <>
-      <head>
-        <title>{config.title}</title>
-        <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
-      </head>
       <Navbar />
       <div id="content" className="mb-4">
         <div className="container text-center justify-content-center col-md-12 col-sm-12">

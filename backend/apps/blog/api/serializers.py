@@ -12,13 +12,17 @@ class TagSerializer(serializers.ModelSerializer):
 class PostListSerializer(serializers.ModelSerializer):
     tag = serializers.StringRelatedField(many=True)
     author = serializers.StringRelatedField()
+    content = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
         fields = [
             'id', 'title', 'slug', 'author', 'created_on',
-            'updated_on', 'status', 'thumb', 'tag',
+            'updated_on', 'status', 'thumb', 'tag', 'content',
         ]
+
+    def get_content(self, obj):
+        return (obj.content or '')[:500]
 
 
 class PostDetailSerializer(serializers.ModelSerializer):

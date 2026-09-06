@@ -1,6 +1,7 @@
+from django.db.models import Prefetch
 from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend
-from apps.gallery.models import Country, City, CityPhoto, CountryAlbum
+from apps.gallery.models import Country, City, CityPhoto, CityGallery, CountryAlbum
 from apps.gallery.api.serializers import (
     CountrySerializer,
     CitySerializer,
@@ -33,9 +34,21 @@ class CityPhotoViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class CountryAlbumViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = CountryAlbum.objects.all().order_by('country')
     lookup_field = 'slug'
     permission_classes = []
+
+    def get_queryset(self):
+        qs = CountryAlbum.objects.all().order_by('country')
+        if self.action == 'list':
+            qs = qs.prefetch_related(
+                Prefetch(
+                    'city_galleries',
+                    queryset=CityGallery.objects.filter(
+                        city_photos__isnull=False
+                    ).distinct()
+                )
+            )
+        return qs
 
     def get_serializer_class(self):
         if self.action == 'list':

@@ -17,6 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/blog" element={<BlogList />} />
+            <Route path="/blog/tags/:tag" element={<BlogList />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/gallery" element={<GalleryList />} />
             <Route path="/gallery/:slug" element={<GalleryDetail />} />

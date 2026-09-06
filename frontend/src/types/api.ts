@@ -20,10 +20,12 @@ export interface Post {
   status: number;
   thumb: string | null;
   tag: string[];
+  content: string;
 }
 
-export interface PostDetail extends Post {
+export interface PostDetail extends Omit<Post, 'tag'> {
   content: string;
+  tag: Tag[];
 }
 
 export interface Tag {
@@ -92,13 +94,21 @@ export interface PaginatedResponse<T> {
   results: T[];
 }
 
+export interface SearchBlogItem {
+  id: number;
+  title: string;
+  slug: string;
+  content: string;
+  tag: string[];
+}
+
 export interface SearchResults {
-  index_results: {
-    about_me: IndexData[];
-    about_prokope: IndexData[];
-  };
-  blog_results: PostDetail[];
-  gallery_results: CountryAlbumList[];
+  about_me: IndexData[];
+  about_prokope: IndexData[];
+  blog: SearchBlogItem[];
+  gallery: CountryAlbumList[];
+  query?: string;
+  error?: string;
 }
 
 export interface ContactPayload {

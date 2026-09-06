@@ -11,7 +11,7 @@ from apps.gallery.api.views import (
     CityPhotoViewSet,
     CountryAlbumViewSet,
 )
-from apps.common.api.views import SearchAPIView
+from apps.common.api.views import SearchAPIView, EnvironmentAPIView
 
 router = DefaultRouter()
 router.register('index', IndexViewSet, basename='index')
@@ -26,6 +26,7 @@ urlpatterns = [
     path('api/tags/', TagListView.as_view(), name='tag-list'),
     path('api/contact/', ContactCreateView.as_view(), name='contact-create'),
     path('api/search/', SearchAPIView.as_view(), name='api-search'),
+    path('api/environment/', EnvironmentAPIView.as_view(), name='api-environment'),
     path('api/api-token-auth/', obtain_auth_token, name='api-token-auth'),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),

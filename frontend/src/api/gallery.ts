@@ -7,8 +7,9 @@ import type {
 } from '../types/api';
 
 export async function getAlbums(): Promise<CountryAlbumList[]> {
-  const response = await client.get<PaginatedResponse<CountryAlbumList>>('/country-albums/');
-  return response.data.results || (response.data as any);
+  const response = await client.get<PaginatedResponse<CountryAlbumList> | CountryAlbumList[]>('/country-albums/');
+  const data = response.data;
+  return Array.isArray(data) ? data : data.results ?? [];
 }
 
 export async function getAlbum(slug: string): Promise<CountryAlbumDetail> {

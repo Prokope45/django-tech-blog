@@ -1,21 +1,23 @@
 import client from './client';
 import type { Post, PostDetail, Tag, PaginatedResponse } from '../types/api';
 
-export async function getPosts(params?: {
+export interface GetPostsParams {
   page?: number;
   sort?: string;
   order?: string;
-  tags?: string;
-}): Promise<PaginatedResponse<Post>> {
-  const response = await client.get<PaginatedResponse<Post>>('/posts/', {
-    params: {
-      page: params?.page || 1,
-      ordering: params?.sort
-        ? `${params.order === 'desc' ? '-' : ''}${params.sort}`
-        : undefined,
-      tags__name__in: params?.tags,
-    },
-  });
+  tags?: string[];
+}
+
+export async function getPosts(params: GetPostsParams = {}): Promise<PaginatedResponse<Post>> {
+  const { page = 1, sort, order = 'desc', tags } = params;
+  const query: Record<string, unknown> = { page };
+  if (sort) {
+    query.ordering = `${order === 'asc' ? '' : '-'}${sort}`;
+  }
+  if (tags && tags.length > 0) {
+    query.tags = tags;
+  }
+  const response = await client.get<PaginatedResponse<Post>>('/posts/', { params: query });
   return response.data;
 }
 

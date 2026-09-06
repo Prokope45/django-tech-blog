@@ -1,13 +1,24 @@
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useLocation, useNavigate } from 'react-router-dom';
 
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  baseUrl?: string;
+}
+
+function getPageWindow(currentPage: number, totalPages: number): number[] {
+  if (totalPages <= 7) {
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
+  const pages = new Set<number>([1, totalPages, currentPage - 1, currentPage, currentPage + 1]);
+  return Array.from(pages)
+    .filter(p => p >= 1 && p <= totalPages)
+    .sort((a, b) => a - b);
 }
 
 export default function Pagination({ currentPage, totalPages }: PaginationProps) {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   if (totalPages <= 1) return null;
 
@@ -18,45 +29,44 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
     } else {
       params.set('page', String(page));
     }
-    setSearchParams(params);
+    const qs = params.toString();
+    navigate(`${location.pathname}${qs ? `?${qs}` : ''}`);
+    window.scrollTo(0, 0);
   };
 
-  const pages: number[] = [];
-  for (let i = 1; i <= totalPages; i++) {
-    pages.push(i);
-  }
+  const pageWindow = getPageWindow(currentPage, totalPages);
 
   return (
     <nav aria-label="Page navigation">
       <ul className="pagination justify-content-center">
         {currentPage > 1 && (
           <li className="page-item">
-            <button
-              className="page-link"
-              onClick={() => goToPage(currentPage - 1)}
-              aria-label="Previous"
-            >
+            <button className="page-link" onClick={() => goToPage(currentPage - 1)} aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
             </button>
           </li>
         )}
-        {pages.map(pageNum => (
-          <li
-            key={pageNum}
-            className={`page-item ${pageNum === currentPage ? 'active' : ''}`}
-          >
-            <button className="page-link" onClick={() => goToPage(pageNum)}>
-              {pageNum}
-            </button>
-          </li>
-        ))}
+        {pageWindow.map((pageNum, idx) => {
+          const prev = pageWindow[idx - 1];
+          const needsEllipsis = prev !== undefined && pageNum - prev > 1;
+          return (
+            <span key={pageNum}>
+              {needsEllipsis && (
+                <li className="page-item disabled">
+                  <span className="page-link">&hellip;</span>
+                </li>
+              )}
+              <li className={`page-item ${pageNum === currentPage ? 'active' : ''}`}>
+                <button className="page-link" onClick={() => goToPage(pageNum)}>
+                  {pageNum}
+                </button>
+              </li>
+            </span>
+          );
+        })}
         {currentPage < totalPages && (
           <li className="page-item">
-            <button
-              className="page-link"
-              onClick={() => goToPage(currentPage + 1)}
-              aria-label="Next"
-            >
+            <button className="page-link" onClick={() => goToPage(currentPage + 1)} aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </button>
           </li>
