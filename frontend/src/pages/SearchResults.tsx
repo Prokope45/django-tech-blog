@@ -55,7 +55,7 @@ export default function SearchResultsPage() {
     !results.gallery?.length;
 
   return (
-    <div className="mt-4">
+    <div className="pt-4">
       <div id="search" className="container">
         {errorMessage ? (
           <div className="alert alert-danger">{errorMessage}</div>
