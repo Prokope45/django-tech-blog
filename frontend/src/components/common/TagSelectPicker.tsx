@@ -85,7 +85,11 @@ export default function TagSelectPicker({
     <div
       ref={ref}
       className="bootstrap-select"
-      style={{ position: 'relative', display: 'inline-block' }}
+      style={{
+        position: 'relative',
+        display: 'inline-block',
+        width: '218px'
+      }}
     >
       <button
         type="button"
@@ -157,7 +161,7 @@ export default function TagSelectPicker({
                   <button
                     key={tag.id}
                     type="button"
-                    className={`dropdown-item d-flex align-items-center ${isSelected ? 'active' : ''}`}
+                    className={`dropdown-item d-flex align-items-center'}`}
                     onClick={() => onToggle(tag.name)}
                     role="option"
                     aria-selected={isSelected}
@@ -167,7 +171,7 @@ export default function TagSelectPicker({
                       type="checkbox"
                       checked={isSelected}
                       readOnly
-                      style={{ pointerEvents: 'none', margin: 0 }}
+                      style={{ pointerEvents: 'none', margin: 0, accentColor: 'var(--button-border-color)' }}
                     />
                     <span className="text">{tag.name}</span>
                   </button>
