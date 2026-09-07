@@ -64,8 +64,8 @@ export default function Footer() {
         </div>
         <div className="footer-copyright text-center">
           <p>
-            2024 &copy; Prokope.io
-            <br />Made with <i className="fa fa-heart fa-sm"></i> from Manhattan, Kansas
+            {new Date().getFullYear()} &copy; Prokope.io
+            <br />Made with <i className="fa fa-heart fa-sm"></i> from Wichita, Kansas
           </p>
         </div>
       </footer>

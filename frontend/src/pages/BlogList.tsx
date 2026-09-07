@@ -250,7 +250,9 @@ function PostCard({ post, tags }: { post: Post; tags: Tag[] }) {
             )}
             <span id="tag" className="col-auto col-xs-12 ml-3">
               <span id="tag" className="row">
-                <i className="fa fa-tags text-muted my-auto"></i>
+                {postTags.length > 0 && (
+                  <i className="fa fa-tags text-muted my-auto"></i>
+                )}
                 {postTags.map(({ name, slug, key }) => (
                   <TagBadge key={key} name={name} slug={slug} stopPropagation />
                 ))}
@@ -264,7 +266,7 @@ function PostCard({ post, tags }: { post: Post; tags: Tag[] }) {
                 <p dangerouslySetInnerHTML={{ __html: content.slice(0, 450) }} />
                 {hasLongExcerpt && <span>...</span>}
               </div>
-              <div className="col-lg-4 order-1 order-lg-2 text-center mx-auto p-0">
+              <div className="col-lg-4 order-2 order-lg-2 text-center mx-auto p-0">
                 <img
                   className="post-image-preview img-fluid"
                   src={thumb}

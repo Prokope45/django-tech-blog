@@ -103,7 +103,7 @@ export default function HomePage() {
               <p>{indexData.about_me_description}</p>
             </LazySection>
 
-            <LazySection className="col-12 col-lg-4 order-1 text-center order-lg-2 mb-2 p-0" delay={150}>
+            <LazySection className="col-12 col-lg-4 order-2 text-center order-lg-2 mb-2 p-0" delay={150}>
               {indexData.hero_image && (
                 <img id="profile" className="img-fluid my-auto" src={indexData.hero_image} alt="Profile" />
               )}
