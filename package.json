@@ -1,0 +1,7 @@
+{
+  "name": "prokope",
+  "private": true,
+  "scripts": {
+    "heroku-postbuild": "cd frontend && npm ci && npm run build"
+  }
+}

@@ -1,0 +1,178 @@
+#!/bin/bash
+
+# echo "Connected to production DB; exiting"
+# exit 0
+
+# Get the directory of the script
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BACKEND_DIR="$(dirname "$SCRIPT_DIR")"
+ROOT_DIR="$(dirname "$BACKEND_DIR")"
+PROJECT_DIR="$BACKEND_DIR/prokope"
+SETTINGS_FILE="$PROJECT_DIR/settings.py"
+
+# --- Portable in-place sed: GNU sed (Linux/devcontainer) vs BSD sed (macOS) ---
+function sed_inplace() {
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    sed -i '' "$@"
+  else
+    sed -i "$@"
+  fi
+}
+
+function testMode() {
+  echo "Setting DEBUG and PRODUCTION to false for testing..."
+
+  sed_inplace 's/^DEBUG *= *.*/DEBUG = False/' "$SETTINGS_FILE"
+  if [ $? -eq 0 ]; then
+    echo "Successfully updated DEBUG to False in $SETTINGS_FILE."
+  else
+    echo "Error: Failed to update DEBUG setting. Please check file permissions."
+    exit 1
+  fi
+
+  sed_inplace 's/^PRODUCTION *= *.*/PRODUCTION = False/' "$SETTINGS_FILE"
+  if [ $? -eq 0 ]; then
+    echo "Successfully updated PRODUCTION to False in $SETTINGS_FILE."
+  else
+    echo "Error: Failed to update PRODUCTION setting. Please check file permissions."
+    exit 1
+  fi
+}
+
+function debugMode() {
+  cat "$SETTINGS_FILE"
+  if grep -q "DEBUG = False" "$SETTINGS_FILE"; then
+    echo "Django DEBUG mode is disabled. Changing DEBUG to True..."
+
+    sed_inplace 's/DEBUG = False/DEBUG = True/' "$SETTINGS_FILE"
+
+    if [ $? -eq 0 ]; then
+        echo "Successfully updated DEBUG to True in $SETTINGS_FILE."
+    else
+        echo "Error: Failed to update DEBUG setting. Please check file permissions."
+        exit 1
+    fi
+  elif grep -q "DEBUG = True" "$SETTINGS_FILE"; then
+    echo "Django DEBUG mode is already enabled."
+  else
+    echo "Error: DEBUG setting not found in $SETTINGS_FILE. Please ensure it exists."
+    exit 1
+  fi
+}
+
+function usage() {
+  cat <<USAGE
+
+  Usage: $0 [-d debug] [-t test]
+
+  Options:
+    -d, --debug:          Run server in debug mode.
+    -t, --test:           Run server in test mode (with DEBUG off).
+USAGE
+    exit 1
+}
+
+if [ ! -d "$PROJECT_DIR" ]; then
+    echo "Error: Project directory '$PROJECT_DIR' does not exist."
+    exit 1
+fi
+
+# --- uv manages the venv (created via `uv sync`); make sure it exists ---
+if [ ! -d "$ROOT_DIR/.venv" ]; then
+    echo "No .venv found at $ROOT_DIR/.venv — running 'uv sync' first..."
+    (cd "$ROOT_DIR" && uv sync --all-groups)
+fi
+
+echo -e "Using uv-managed environment at $ROOT_DIR/.venv\n"
+
+$SCRIPT_DIR/apply_migrations.sh
+
+echo "🧪 Running tests..."
+
+# List of Django apps to test
+APPS=(
+  # "apps.index"
+  "apps.blog"
+  "apps.gallery"
+  "apps.common"
+)
+# "apps.admin"  # FIXME: NEEDS TESTS
+
+cd "$BACKEND_DIR" || { echo "Error: Failed to navigate to backend directory."; exit 1; }
+
+# Clean previous coverage data
+uv run coverage erase
+
+# Run tests and collect coverage for each app
+for APP in "${APPS[@]}"; do
+    echo "----------------------------------------------------------------------"
+    echo "➡️ Testing $APP ..."
+    uv run coverage run --source=$APP --omit=*/migrations/* --parallel-mode manage.py test $APP
+    if [ $? -ne 0 ]; then
+        echo "❌ Tests failed in $APP. Please fix the errors before running the server again."
+        exit 1
+    fi
+done
+
+# Combine coverage data from parallel runs
+uv run coverage combine
+
+# Generate coverage report
+MIN_COVERAGE=80
+COVERAGE_RESULT=$(uv run coverage report | grep 'TOTAL' | awk '{print $4}' | sed 's/%//')
+
+# Check coverage threshold
+if [ "$COVERAGE_RESULT" -lt "$MIN_COVERAGE" ]; then
+    echo "❌ Code coverage is below ${MIN_COVERAGE}%. Current: ${COVERAGE_RESULT}%"
+    uv run coverage report -m
+    exit 1
+fi
+
+echo "✅ All tests passed."
+echo "✅ Coverage at: ${COVERAGE_RESULT}%"
+
+# Generate HTML coverage report
+uv run coverage html -d docs/coverage
+echo -e "\n"
+
+if [ $# -eq 0 ]; then
+  echo "No arguments provided... running server in QA Mode connection to production DB."
+  # debugMode
+else
+  while [ "$1" != "" ]; do
+    case $1 in
+    -d | --debug)
+      debugMode
+      break
+      ;;
+    -t | --test)
+      testMode
+      break
+      ;;
+    -h | --help)
+      usage
+      ;;
+    *)
+      debugMode
+      break
+      ;;
+    esac
+  done
+fi
+
+# Run the Django development server
+echo "Starting the Django server..."
+cat << "EOF"
+ ____                 __                                  
+/\  _`\              /\ \                                 
+\ \ \L\ \ _ __   ___ \ \ \/'\      ___    _____      __   
+ \ \ ,__//\`'__\/ __`\\ \ , <     / __`\ /\ '__`\  /'__`\ 
+  \ \ \/ \ \ \//\ \L\ \\ \ \\`\  /\ \L\ \\ \ \L\ \/\  __/ 
+   \ \_\  \ \_\\ \____/ \ \_\ \_\\ \____/ \ \ ,__/\ \____\
+    \/_/   \/_/ \/___/   \/_/\/_/ \/___/   \ \ \/  \/____/
+                                            \ \_\         
+                                             \/_/         
+EOF
+
+cd "$BACKEND_DIR" || exit 1
+uv run python3 manage.py runserver

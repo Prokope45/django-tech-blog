@@ -1,0 +1,28 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "npm: dev (frontend)",
+      "type": "npm",
+      "script": "dev",
+      "path": "frontend/",
+      "isBackground": true,
+      "group": "build",
+      "problemMatcher": {
+        "owner": "vite",
+        "pattern": {
+          "regexp": "^$"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "VITE v\\d|ready in",
+          "endsPattern": "Local:\\s+http://localhost:([0-9]+)"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    }
+  ]
+}
