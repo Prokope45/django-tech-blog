@@ -65,7 +65,6 @@ export default function ReactMasonry({
             flexDirection: 'column',
             gap: gutter,
             flex: 1,
-            maxWidth: 'fit-content',
             alignItems: 'center',
           }}
         >

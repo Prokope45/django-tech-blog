@@ -789,14 +789,14 @@ button > span {
 
 .gallery_product .lazy-image-wrapper .lazy-image, .gallery_product img {
   display: block;
-  width: 200px;
+  width: 100%;
   height: auto;
 }
 
 /* Lazy loader */
 .lazy-image-wrapper {
   position: relative;
-  width: 200px;
+  width: 100%;
 }
 
 .spinner {

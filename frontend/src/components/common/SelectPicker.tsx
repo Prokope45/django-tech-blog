@@ -52,7 +52,7 @@ export default function SelectPicker({
     <div
       ref={ref}
       className={`bootstrap-select ${className}`}
-      style={{ position: 'relative' }}
+      style={{ position: 'relative', width: '218px' }}
     >
       <button
         type="button"
