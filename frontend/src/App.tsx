@@ -8,6 +8,7 @@ import GalleryList from './pages/GalleryList';
 import GalleryDetail from './pages/GalleryDetail';
 import SearchResults from './pages/SearchResults';
 import ErrorPage from './pages/ErrorPage';
+import AdminRedirect from './components/common/AdminRedirect';
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
             <Route path="/gallery" element={<GalleryList />} />
             <Route path="/gallery/:slug" element={<GalleryDetail />} />
             <Route path="/search" element={<SearchResults />} />
+            <Route path="/admin" element={<AdminRedirect />} />
+            <Route path="/admin/*" element={<AdminRedirect />} />
             <Route path="/400" element={<ErrorPage code={400} />} />
             <Route path="/403" element={<ErrorPage code={403} />} />
             <Route path="/404" element={<ErrorPage code={404} />} />

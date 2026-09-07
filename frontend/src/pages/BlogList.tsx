@@ -3,7 +3,8 @@ import { useNavigate, useSearchParams, useParams } from 'react-router-dom';
 import Pagination from '../components/common/Pagination';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import TagBadge from '../components/common/TagBadge';
-import TagMultiSelect from '../components/common/TagMultiSelect';
+import SelectPicker from '../components/common/SelectPicker';
+import TagSelectPicker from '../components/common/TagSelectPicker';
 import { getPosts, getTags } from '../api/blog';
 import { slugToTagName } from '../utils/format';
 import type { Post, Tag } from '../types/api';
@@ -24,6 +25,14 @@ export default function BlogList() {
       ? `Prokope | Articles tagged "${tagSlug}"`
       : 'Prokope | Articles';
   }, [tagSlug]);
+
+  useEffect(() => {
+    const el = document.getElementById('content');
+    if (el) el.setAttribute('data-loading', (loading && posts.length === 0) ? 'true' : 'false');
+    return () => {
+      el?.removeAttribute('data-loading');
+    };
+  }, [loading, posts.length]);
 
   useEffect(() => {
     getTags().then(setTags).catch(() => {});
@@ -109,7 +118,7 @@ export default function BlogList() {
     setSearchParams(params);
   };
 
-  if (loading && posts.length === 0) return <LoadingSpinner />;
+  if (loading && posts.length === 0) return <LoadingSpinner delay={800} />;
 
   return (
     <div className="mt-4">
@@ -121,19 +130,20 @@ export default function BlogList() {
         <div className="d-flex flex-wrap justify-content-end mb-2">
           <div className="w-auto w-100 mb-2 mb-md-0 mr-md-2">
             <div className="input-group">
-              <select
+              <SelectPicker
                 id="sort-select"
-                className="form-control"
                 value={currentSort}
-                onChange={e => setParam('sort', e.target.value)}
-              >
-                <option value="" disabled>Sort by...</option>
-                <option value="created_on">Created</option>
-                <option value="updated_on">Updated</option>
-                <option value="title">Title</option>
-              </select>
+                onChange={val => setParam('sort', val)}
+                options={[
+                  { value: 'created_on', label: 'Created' },
+                  { value: 'updated_on', label: 'Updated' },
+                  { value: 'title', label: 'Title' },
+                ]}
+                placeholder="Sort by..."
+              />
               <div className="input-group-append">
                 <button
+                  type="button"
                   id="filter-button"
                   onClick={() => setParam('order', 'asc')}
                   className="btn btn-outline-secondary"
@@ -143,6 +153,7 @@ export default function BlogList() {
                   <i className="fa fa-sort-amount-asc"></i>
                 </button>
                 <button
+                  type="button"
                   id="filter-button"
                   onClick={() => setParam('order', 'desc')}
                   className="btn btn-outline-secondary"
@@ -156,7 +167,36 @@ export default function BlogList() {
           </div>
 
           <div className="w-auto w-100">
-            <TagMultiSelect tags={tags} selectedTags={selectedTags} onToggle={toggleTag} />
+            <div className="input-group">
+              <TagSelectPicker
+                tags={tags}
+                selectedTags={selectedTags}
+                onToggle={toggleTag}
+                onSelectAll={() => {
+                  const allNames = tags.map(t => t.name);
+                  const params = new URLSearchParams(searchParams);
+                  params.set('tags', allNames.join(','));
+                  params.delete('page');
+                  setSearchParams(params);
+                }}
+                onDeselectAll={() => {
+                  const params = new URLSearchParams(searchParams);
+                  params.delete('tags');
+                  params.delete('page');
+                  setSearchParams(params);
+                }}
+              />
+              <div className="input-group-append">
+                <button
+                  type="button"
+                  id="filter-button"
+                  className="btn btn-outline-secondary my-auto"
+                  title="Filter by tags"
+                >
+                  <i className="fa fa-filter"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -238,7 +278,7 @@ function PostCard({ post, tags }: { post: Post; tags: Tag[] }) {
             <p dangerouslySetInnerHTML={{ __html: content.slice(0, 450) }} />
           )}
         </div>
-        <p className="read-more mb-0">Read More...</p>
+        <span className="read-more">Read More...</span>
       </div>
     </div>
   );

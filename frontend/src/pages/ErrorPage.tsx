@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { Navbar, Footer } from '../components/layout/BaseLayout';
 
 interface ErrorPageProps {
   code: number;
@@ -43,25 +42,21 @@ export default function ErrorPage({ code = 404 }: { code?: number }) {
   }, [config.title]);
 
   return (
-    <>
-      <Navbar />
-      <div id="content" className="mb-4">
-        <div className="container text-center justify-content-center col-md-12 col-sm-12">
-          <h1 className="m-3">{config.message}</h1>
-          {config.lottieSrc && (
-            <dotlottie-player
-              className="mx-auto"
-              src={config.lottieSrc}
-              background="transparent"
-              speed={1}
-              style={{ width: 300, height: 300 }}
-              loop
-              autoplay
-            ></dotlottie-player>
-          )}
-        </div>
+    <div className="mb-4">
+      <div className="container text-center justify-content-center col-md-12 col-sm-12">
+        <h1 className="m-3">{config.message}</h1>
+        {config.lottieSrc && (
+          <dotlottie-player
+            className="mx-auto"
+            src={config.lottieSrc}
+            background="transparent"
+            speed={1}
+            style={{ width: 300, height: 300 }}
+            loop
+            autoplay
+          ></dotlottie-player>
+        )}
       </div>
-      <Footer />
-    </>
+    </div>
   );
 }
