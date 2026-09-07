@@ -121,7 +121,7 @@ export default function BlogList() {
   if (loading && posts.length === 0) return <LoadingSpinner delay={800} />;
 
   return (
-    <div className="mt-4">
+    <div className="pt-4">
       <div className="container">
         <h1 className="text-center">
           {tagSlug ? `Articles tagged "${activeTagName || tagSlug}"` : 'Articles'}

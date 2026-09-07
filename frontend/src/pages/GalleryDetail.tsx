@@ -101,7 +101,7 @@ export default function GalleryDetail() {
   const countryName = album.country.name;
 
   return (
-    <div className="mt-4">
+    <div className="pt-4">
       <section className="portfolio" id="portfolio">
         <div className="container">
           <div className="text-center">

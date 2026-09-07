@@ -95,7 +95,7 @@ export default function BlogPost() {
   if (!post) return null;
 
   return (
-    <div className="mt-4">
+    <div className="pt-4">
       <div className="container">
         <div className="mb-2">
           <button
