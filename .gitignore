@@ -3,17 +3,24 @@
 venv/
 .env
 .coverage*
-/media/photologue/
-/media/*.jpg
-/media/*.JPEG
-/media/*.JPG
-/media/*.PNG
-/media/*.png
-/static/lightbox/images/
-/static/ckeditor/ckeditor/skins/
+backend/media/photologue/
+backend/staticfiles/
+backend/media/*.jpg
+backend/media/*.JPEG
+backend/media/*.JPG
+backend/media/*.PNG
+backend/media/*.png
+backend/static/lightbox/images/
+backend/static/ckeditor/ckeditor/skins/
 # apps/*/migrations/*.py
 # !**/migrations/__init__.py
 .DS_Store
 db.sqlite3
 .idea/
 __pycache__
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+*.tsbuildinfo
