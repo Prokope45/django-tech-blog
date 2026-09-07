@@ -135,8 +135,6 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:5173",
 ]
 
-REACT_FRONTEND_ENABLED = os.environ.get("REACT_FRONTEND_ENABLED", "False") == "True"
-
 LOGIN_REDIRECT_URL = "/admin/"
 LOGOUT_REDIRECT_URL = "/admin/"
 
@@ -192,7 +190,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'apps.common.context_processors.environment_info',
             ]
         },
     },
@@ -310,11 +307,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'frontend', 'dist'),
     os.path.join(BACKEND_DIR, 'static'),
 ]
-
-if REACT_FRONTEND_ENABLED:
-    STATICFILES_DIRS.insert(0, os.path.join(BASE_DIR, 'frontend', 'dist'))
 
 STATIC_ROOT = os.path.join(BACKEND_DIR, 'staticfiles')
 

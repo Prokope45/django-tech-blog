@@ -4,6 +4,7 @@ venv/
 .env
 .coverage*
 backend/media/photologue/
+backend/staticfiles/
 backend/media/*.jpg
 backend/media/*.JPEG
 backend/media/*.JPG

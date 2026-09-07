@@ -73,7 +73,7 @@ class IndexModelTest(TestCase):
     def test_default_about_me_description(self):
         self.assertEqual(
             self.__index.about_me_description,
-            ("I\'m from Kansas, served in the Marines, and work as a software ",
+            ("I'm from Kansas, served in the Marines, and work as a software "
              "developer intern while studying at Kansas State University")
         )
 

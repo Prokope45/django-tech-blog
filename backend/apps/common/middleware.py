@@ -10,10 +10,17 @@ class SPAMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        if not settings.REACT_FRONTEND_ENABLED:
-            return self.get_response(request)
-
-        skip_prefixes = ('/admin', '/api', '/oidc', '/summernote', '/photologue', '/media', '/static')
+        skip_prefixes = (
+            '/admin',
+            '/api',
+            '/oidc',
+            '/summernote',
+            '/photologue',
+            '/media',
+            '/static',
+            '/.well-known',
+            '/blog/update_server',
+        )
         if request.path.startswith(skip_prefixes):
             return self.get_response(request)
 
