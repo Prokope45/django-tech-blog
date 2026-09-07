@@ -22,24 +22,27 @@ export function useLazyLoader(trigger?: unknown) {
       if (type === 'image') {
         const img = el as HTMLImageElement;
         const src = img.getAttribute('data-src');
+        const markLoaded = () => {
+          el.closest('[data-masonry-item]')?.classList.add('loaded');
+        };
         if (!src || img.getAttribute('src') === src) {
           img.classList.add('in-view');
           img.classList.remove('lazy-image');
+          markLoaded();
           return;
         }
-        const spinner = el.closest('[data-masonry-item]')?.querySelector('.spinner');
         img.src = src;
         img.onload = () => {
           img.classList.add('in-view');
           img.classList.remove('lazy-image');
-          spinner?.remove();
+          markLoaded();
           window.dispatchEvent(new CustomEvent('lazyload:image', { detail: img }));
         };
         img.onerror = () => {
           img.src = (img as HTMLImageElement).getAttribute('data-src') || '';
           img.classList.add('in-view');
           img.classList.remove('lazy-image');
-          spinner?.remove();
+          markLoaded();
         };
       }
     };
