@@ -29,6 +29,11 @@ RUN curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc \
     && apt-get update && apt-get install -y --no-install-recommends postgresql-client-16 \
     && rm -rf /var/lib/apt/lists/*
 
+# Install Node.js 20 LTS and npm for frontend development
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y --no-install-recommends nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
 # Install uv (official static binary image)
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /usr/local/bin/
 

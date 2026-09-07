@@ -2,24 +2,39 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { getAlbums } from '../api/gallery';
-import type { CountryAlbumList, CityPhoto } from '../types/api';
+import { getCached } from '../api/client';
+import type { CountryAlbumList, CityPhoto, PaginatedResponse } from '../types/api';
 
 export default function GalleryList() {
-  const [albums, setAlbums] = useState<CountryAlbumList[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [albums, setAlbums] = useState<CountryAlbumList[]>(() => {
+    const cached = getCached<PaginatedResponse<CountryAlbumList> | CountryAlbumList[]>('/country-albums/');
+    if (!cached) return [];
+    return Array.isArray(cached) ? cached : (cached.results ?? []);
+  });
+  const [loading, setLoading] = useState(albums.length === 0);
 
   useEffect(() => {
     document.title = 'Prokope | Gallery';
   }, []);
 
   useEffect(() => {
+    const el = document.getElementById('content');
+    if (el) el.setAttribute('data-loading', (loading && albums.length === 0) ? 'true' : 'false');
+    return () => {
+      el?.removeAttribute('data-loading');
+    };
+  }, [loading, albums.length]);
+
+  useEffect(() => {
     getAlbums()
       .then(data => setAlbums(data))
-      .catch(() => setAlbums([]))
+      .catch(() => {
+        setAlbums(prev => (prev.length === 0 ? [] : prev));
+      })
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <LoadingSpinner />;
+  if (loading && albums.length === 0) return <LoadingSpinner delay={800} />;
 
   return (
     <div className="mt-4">

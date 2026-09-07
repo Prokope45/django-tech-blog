@@ -14,7 +14,12 @@ export default function BackToTopButton() {
   if (!visible) return null;
 
   return (
-    <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} id="backToTopBtn" aria-label="Back to top">
+    <button
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      id="backToTopBtn"
+      className="btn btn-outline-secondary"
+      aria-label="Back to top"
+    >
       <i className="fa fa-arrow-up"></i>
     </button>
   );

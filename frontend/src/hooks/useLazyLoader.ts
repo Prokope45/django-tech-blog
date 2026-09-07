@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 
-export function useLazyLoader() {
+export function useLazyLoader(trigger?: unknown) {
   useEffect(() => {
     let observer: IntersectionObserver | null = null;
+    const observedElements = new WeakSet<Element>();
 
     const process = (el: Element) => {
       const type = el.getAttribute('data-lazy');
-
       if (!type) return;
 
       if (type === 'section') {
@@ -45,10 +45,28 @@ export function useLazyLoader() {
     };
 
     const scan = () => {
-      const els = document.querySelectorAll('[data-lazy]:not([data-lazy-processed])');
+      if (!observer) return;
+
+      // Check if main content is currently in a loading state
+      const contentEl = document.getElementById('content');
+      const isContentLoading = contentEl?.getAttribute('data-loading') === 'true';
+
+      const els = document.querySelectorAll<HTMLElement>('[data-lazy]');
       els.forEach(el => {
-        el.setAttribute('data-lazy-processed', 'true');
-        observer?.observe(el);
+        // If it's already in-view and image is not pending, skip
+        if (el.classList.contains('in-view') && !el.classList.contains('lazy-image')) {
+          return;
+        }
+
+        // Defer observing #footer if content is still loading
+        if (el.id === 'footer' && isContentLoading) {
+          return;
+        }
+
+        if (!observedElements.has(el)) {
+          observedElements.add(el);
+          observer?.observe(el);
+        }
       });
     };
 
@@ -58,19 +76,31 @@ export function useLazyLoader() {
           if (!entry.isIntersecting) return;
           process(entry.target);
           observer?.unobserve(entry.target);
+          observedElements.delete(entry.target);
         });
       },
-      { threshold: 0.05, rootMargin: '0px 0px 200px 0px' }
+      { threshold: 0.05, rootMargin: '0px 0px 50px 0px' }
     );
 
     scan();
+    const t1 = setTimeout(scan, 50);
+    const t2 = setTimeout(scan, 200);
 
-    const mutationObserver = new MutationObserver(scan);
-    mutationObserver.observe(document.body, { childList: true, subtree: true });
+    const mutationObserver = new MutationObserver(() => {
+      scan();
+    });
+    mutationObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['data-loading'],
+    });
 
     return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
       observer?.disconnect();
       mutationObserver.disconnect();
     };
-  }, []);
+  }, [trigger]);
 }

@@ -23,25 +23,18 @@
     <!-- Bootstrap 4 (grid/card/carousel base styles, same as Django templates) -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
 
-    <!-- Lightbox2 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" />
-
     <!-- Prism.js (syntax highlighting) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.css" />
+
+    <!-- Lightbox2 (gallery & post image zoom) -->
+    <link rel="stylesheet" href="/lightbox/css/lightbox.min.css" />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
 
-    <!-- jQuery (lightbox requires the full Effects module) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
-    <!-- Masonry + imagesLoaded (gallery layouts) -->
-    <script src="https://unpkg.com/imagesloaded@4.1.4/imagesloaded.pkgd.min.js"></script>
-    <script src="https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
-
-    <!-- Lightbox2 JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+    <!-- Lightbox2 -->
+    <script src="/lightbox/js/lightbox-plus-jquery.min.js"></script>
 
     <!-- Prism.js -->
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>

@@ -13,6 +13,14 @@ export default function SearchResultsPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    const el = document.getElementById('content');
+    if (el) el.setAttribute('data-loading', loading ? 'true' : 'false');
+    return () => {
+      el?.removeAttribute('data-loading');
+    };
+  }, [loading]);
+
+  useEffect(() => {
     if (!query) {
       setResults(null);
       setLoading(false);
@@ -36,7 +44,7 @@ export default function SearchResultsPage() {
     };
   }, [query]);
 
-  if (loading) return <LoadingSpinner />;
+  if (loading) return <LoadingSpinner delay={800} />;
 
   const errorMessage = results?.error;
   const empty =

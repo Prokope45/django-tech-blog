@@ -3,14 +3,25 @@ import { useParams, useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import TagBadge from '../components/common/TagBadge';
 import { getPost } from '../api/blog';
+import { getCached } from '../api/client';
 import { formatDate } from '../utils/format';
 import type { PostDetail } from '../types/api';
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const [post, setPost] = useState<PostDetail | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [post, setPost] = useState<PostDetail | null>(() => {
+    return slug ? getCached<PostDetail>(`/posts/${slug}/`) : null;
+  });
+  const [loading, setLoading] = useState(!post);
+
+  useEffect(() => {
+    const el = document.getElementById('content');
+    if (el) el.setAttribute('data-loading', (loading && !post) ? 'true' : 'false');
+    return () => {
+      el?.removeAttribute('data-loading');
+    };
+  }, [loading, post]);
 
   useEffect(() => {
     if (!slug) {
@@ -18,14 +29,19 @@ export default function BlogPost() {
       return;
     }
     let cancelled = false;
-    setLoading(true);
-    setPost(null);
+    const cached = getCached<PostDetail>(`/posts/${slug}/`);
+    if (cached) {
+      setPost(cached);
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
     getPost(slug)
       .then(data => {
         if (!cancelled) setPost(data);
       })
       .catch(() => {
-        if (!cancelled) navigate('/404', { replace: true });
+        if (!cancelled && !cached) navigate('/404', { replace: true });
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
@@ -53,30 +69,39 @@ export default function BlogPost() {
       }, 0);
     }
 
-    // Wrap content images in lightbox anchors (skip images already wrapped).
-    const images = content.querySelectorAll<HTMLImageElement>('img');
-    images.forEach(img => {
-      if (img.parentElement?.tagName.toLowerCase() === 'a' && img.parentElement.hasAttribute('data-lightbox')) {
+    // Automatically wrap all images in card-body for lightbox (matching Django's BlogPostImageLightbox.js)
+    const cardBody = document.querySelector('#blog-detail .card-body');
+    if (!cardBody) return;
+
+    const images = cardBody.querySelectorAll<HTMLImageElement>('img');
+    images.forEach(image => {
+      if (image.parentElement?.tagName === 'A' && image.parentElement.hasAttribute('data-lightbox')) {
         return;
       }
-      if (img.closest('#blog-content img') === null) return;
-      const link = document.createElement('a');
-      link.href = img.currentSrc || img.src;
-      link.setAttribute('data-lightbox', 'article-images');
-      link.style.display = 'inline-block';
-      img.parentNode?.insertBefore(link, img);
-      link.appendChild(img);
+      const imageUrl = image.currentSrc || image.src;
+      const lightboxLink = document.createElement('a');
+      lightboxLink.href = imageUrl;
+      lightboxLink.setAttribute('data-lightbox', 'article-images');
+      if (image.alt) {
+        lightboxLink.setAttribute('title', image.alt);
+      }
+      lightboxLink.style.display = 'inline-block';
+      image.parentNode?.insertBefore(lightboxLink, image);
+      lightboxLink.appendChild(image);
     });
   }, [post]);
 
-  if (loading) return <LoadingSpinner />;
+  if (loading && !post) return <LoadingSpinner delay={800} />;
   if (!post) return null;
 
   return (
     <div className="mt-4">
       <div className="container">
         <div className="mb-2">
-          <button className="post-back-button btn btn-outline-secondary btn-sm" onClick={() => window.history.back()}>
+          <button
+            className="post-back-button btn btn-outline-secondary btn-sm"
+            onClick={() => navigate('/blog')}
+          >
             <span>Back to Blog</span>
           </button>
         </div>
@@ -106,10 +131,26 @@ export default function BlogPost() {
               </div>
               {post.thumb && (
                 <div className="col-lg-6 col-md-8 col-sm-10 my-4 mx-auto p-0">
-                  <img className="post-image img-fluid" src={post.thumb} alt={post.title} loading="lazy" />
+                  <a
+                    href={post.thumb}
+                    data-lightbox="article-images"
+                    title={post.title}
+                    style={{ display: 'inline-block' }}
+                  >
+                    <img
+                      className="post-image img-fluid"
+                      src={post.thumb}
+                      alt={post.title}
+                      loading="lazy"
+                    />
+                  </a>
                 </div>
               )}
-              <div id="blog-content" className="mt-3" dangerouslySetInnerHTML={{ __html: post.content }} />
+              <div
+                id="blog-content"
+                className="mt-3"
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              />
             </div>
           </div>
         </div>

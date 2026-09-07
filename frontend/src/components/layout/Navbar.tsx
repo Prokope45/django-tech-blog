@@ -29,8 +29,18 @@ export default function Navbar() {
       .catch(() => {});
   }, []);
 
-  const isActive = (path: string) =>
-    path === '/' ? location.pathname === '/' : location.pathname.startsWith(path);
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const q = params.get('q');
+    if (q) {
+      setSearchQuery(q);
+    }
+  }, [location.search]);
+
+  const isActive = (path: string) => {
+    if (path === '/') return location.pathname === '/';
+    return location.pathname.startsWith(path);
+  };
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,10 +49,10 @@ export default function Navbar() {
     }
   };
 
-  const activeClass = (path: string) => (isActive(path) && !(path === '/' && location.pathname !== '/') ? 'active' : '');
+  const activeClass = (path: string) => (isActive(path) ? 'active' : '');
 
   return (
-    <nav className="navbar navbar-expand-sm bg-[var(--navbar-bg-color)] text-[var(--navbar-text-color)]">
+    <nav className="navbar navbar-expand-sm">
       <div className="navbar-brand row align-items-center">
         <Link to="/" className={`nav-link ${activeClass('/')}`} aria-label="Prokope home">
           <img
@@ -90,7 +100,7 @@ export default function Navbar() {
             </Link>
           </li>
           <li className="nav-item d-flex align-items-center">
-            <span className="w-full md:w-40 lg:w-56">
+            <span style={{ width: '100%' }}>
               <form className="d-flex" onSubmit={handleSearch}>
                 <input
                   id="search-bar"

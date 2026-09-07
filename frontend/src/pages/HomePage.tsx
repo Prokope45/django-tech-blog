@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import ReactMasonry from '../components/common/ReactMasonry';
 import LazySection from '../components/common/LazySection';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { getIndexData, getRecentPosts, getRandomAlbum, type RandomGallery } from '../api/index';
-import type { IndexData, Post } from '../types/api';
+import { getCached } from '../api/client';
+import type { IndexData, Post, PaginatedResponse } from '../types/api';
 
 const IDE_CODE = `def welcome_message():
     return {
@@ -21,16 +23,31 @@ const IDE_CODE = `def welcome_message():
     }`;
 
 export default function HomePage() {
-  const [indexData, setIndexData] = useState<IndexData | null>(null);
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [indexData, setIndexData] = useState<IndexData | null>(() => {
+    const cached = getCached<PaginatedResponse<IndexData> | IndexData[]>('/index/');
+    if (!cached) return null;
+    return Array.isArray(cached) ? cached[0] : (cached.results ? cached.results[0] : null);
+  });
+  const [posts, setPosts] = useState<Post[]>(() => {
+    const cached = getCached<PaginatedResponse<Post>>('/posts/', { ordering: '-updated_on', page: 1 });
+    return cached ? (cached.results ?? []).slice(0, 2) : [];
+  });
   const [gallery, setGallery] = useState<RandomGallery | null>(null);
   const [galleryLoading, setGalleryLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!indexData);
 
   useEffect(() => {
     document.title = 'Prokope.io';
   }, []);
+
+  useEffect(() => {
+    const el = document.getElementById('content');
+    if (el) el.setAttribute('data-loading', (loading && !indexData) ? 'true' : 'false');
+    return () => {
+      el?.removeAttribute('data-loading');
+    };
+  }, [loading, indexData]);
 
   useEffect(() => {
     Promise.all([getIndexData(), getRecentPosts()])
@@ -38,7 +55,12 @@ export default function HomePage() {
         setIndexData(index);
         setPosts(recentPosts);
       })
-      .catch(() => setError(true))
+      .catch(() => {
+        setIndexData(prev => {
+          if (!prev) setError(true);
+          return prev;
+        });
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -51,8 +73,9 @@ export default function HomePage() {
     return () => { cancelled = true; };
   }, []);
 
-  if (loading) return <LoadingSpinner />;
-  if (error || !indexData) return <LoadingSpinner />;
+  if (loading && !indexData) return <LoadingSpinner delay={800} />;
+  if (error && !indexData) return <LoadingSpinner delay={800} />;
+  if (!indexData) return <LoadingSpinner delay={800} />;
 
   return (
     <div>
@@ -110,7 +133,7 @@ export default function HomePage() {
         {posts.length > 0 && <RecentArticles posts={posts} />}
 
         {galleryLoading ? (
-          <div className="text-center my-5"><span className="spinner-border" role="status" style={{ color: 'var(--iris)' }} /></div>
+          <LoadingSpinner delay={800} minHeight="150px" />
         ) : gallery ? (
           <>
             <SectionBreak
@@ -201,9 +224,7 @@ function IdeSimulator({ title }: { title: string }) {
         </div>
         <div className="ide-content">
           <div className="ide-header">~/projects/prokope/index.py</div>
-          <pre className="ide-editor">
-            <code id="editor" ref={editorRef} className="language-python"></code>
-          </pre>
+          <pre className="ide-editor language-python"><code id="editor" ref={editorRef} className="language-python"></code></pre>
           <div className="ide-footer" ref={footerRef} id="ide-footer">
             Ln 1, Col 1
           </div>
@@ -281,51 +302,19 @@ function stripForPreview(html: string): string {
 }
 
 function HomeGallerySection({ city, photos, slug }: { city: string; photos: RandomGallery['photos']; slug: string }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const masonryRef = useRef<MasonryInstance | null>(null);
-
-  useEffect(() => {
-    const elem = containerRef.current;
-    if (!elem) return;
-
-    const initMasonry = () => {
-      if (masonryRef.current) masonryRef.current.destroy();
-      if (typeof window.Masonry !== 'function') return;
-      masonryRef.current = new window.Masonry(elem, {
-        itemSelector: '.gallery_product',
-        columnWidth: '.gallery_product',
-        isFitWidth: true,
-      });
-      masonryRef.current.layout();
-    };
-
-    if (typeof window.imagesLoaded === 'function') {
-      window.imagesLoaded(elem).on('always', () => {
-        setTimeout(initMasonry, 50);
-      });
-    } else {
-      initMasonry();
-    }
-
-    const onImageLoaded = () => masonryRef.current?.layout();
-    window.addEventListener('lazyload:image', onImageLoaded);
-
-    return () => {
-      window.removeEventListener('lazyload:image', onImageLoaded);
-      if (masonryRef.current) masonryRef.current.destroy();
-      masonryRef.current = null;
-    };
-  }, []);
-
   return (
     <section className="index-section">
       <Link to={`/gallery/${slug}`}>
         <h1 className="text-center">{city}</h1>
       </Link>
-      <div id="masonry-container" ref={containerRef}>
+      <ReactMasonry id="masonry-container">
         {photos.map(photo => (
           <div key={photo.id} className="gallery_product m-2">
-            <a title={`${photo.title} on ${photo.date_taken}`} href={photo.get_display_url} data-lightbox="home-gallery">
+            <a
+              title={`${photo.title} on ${photo.date_taken}`}
+              href={photo.get_display_url}
+              data-lightbox="home-gallery"
+            >
               <span className="lazy-image-wrapper" data-masonry-item>
                 <div className="spinner"></div>
                 <img
@@ -340,7 +329,7 @@ function HomeGallerySection({ city, photos, slug }: { city: string; photos: Rand
             </a>
           </div>
         ))}
-      </div>
+      </ReactMasonry>
     </section>
   );
 }

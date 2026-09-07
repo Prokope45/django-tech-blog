@@ -24,14 +24,15 @@ function ScrollToTop() {
 }
 
 export default function BaseLayout({ children }: { children: React.ReactNode }) {
-  useLazyLoader();
+  const { pathname } = useLocation();
+  useLazyLoader(pathname);
 
   return (
     <>
       <ScrollToTop />
       <Navbar />
       <main id="content">{children}</main>
-      <Footer />
+      <Footer key={pathname} />
       <BackToTopButton />
     </>
   );
