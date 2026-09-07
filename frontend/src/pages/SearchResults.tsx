@@ -80,10 +80,10 @@ export default function SearchResultsPage() {
             )}
 
             {((results?.about_me?.length ?? 0) + (results?.about_prokope?.length ?? 0)) > 0 && (
-              <div className="search-results-link">
+              <div className="search-results-link lazy-section" data-lazy="section">
                 <h3>Home</h3>
                 {results!.about_me.map(item => (
-                  <ul key={item.id} className="search-results-link lazy-section" data-lazy="section">
+                  <ul key={item.id} className="search-results-link">
                     <li>
                       <h4>
                         <Link to={`/#${encodeURIComponent(item.about_me_title)}`}>{item.about_me_title}</Link>
@@ -108,7 +108,7 @@ export default function SearchResultsPage() {
             )}
 
             {results?.blog && results.blog.length > 0 && (
-              <div className="search-results-link">
+              <div className="search-results-link lazy-section" data-lazy="section">
                 <h3>Blog Articles</h3>
                 <ul>
                   {results.blog.map((post, idx) => (
@@ -119,11 +119,11 @@ export default function SearchResultsPage() {
             )}
 
             {results?.gallery && results.gallery.length > 0 && (
-              <div className="search-results-link">
+              <div className="search-results-link lazy-section" data-lazy="section">
                 <h3>Galleries</h3>
                 <ul>
                   {results.gallery.map(result => (
-                    <li key={result.id} className="lazy-section" data-lazy="section">
+                    <li key={result.id}>
                       <h4 className="mb-2">
                         <Link to={`/gallery/${result.slug}`}>
                           {result.country}
@@ -169,12 +169,14 @@ function SearchBlogItemRow({ post, isLast }: { post: SearchBlogItem; isLast: boo
         <Link to={`/blog/${post.slug}`}>{post.title}</Link>
       </h4>
       <p>{truncateWords(stripTags(post.content || ''), 50)}</p>
-      <span id="tag" className="d-inline">
-        <i className="fa text-muted fa-tags"></i>
-        {post.tag.map((name, i) => (
-          <TagBadge key={`${name}-${i}`} name={name} />
-        ))}
-      </span>
+      {post.tag.length > 0 && (
+        <span id="tag" className="d-inline">
+          <i className="fa text-muted fa-tags"></i>
+          {post.tag.map((name, i) => (
+            <TagBadge key={`${name}-${i}`} name={name} />
+          ))}
+        </span>
+      )}
       {!isLast && <hr />}
     </li>
   );

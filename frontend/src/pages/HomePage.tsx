@@ -316,7 +316,6 @@ function HomeGallerySection({ city, photos, slug }: { city: string; photos: Rand
               data-lightbox="home-gallery"
             >
               <span className="lazy-image-wrapper" data-masonry-item>
-                <div className="spinner"></div>
                 <img
                   className="lazy-image travel-photo d-block"
                   src={photo.get_thumbnail_url}
