@@ -2,25 +2,32 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Run server (QA mode, no args)",
+      "name": "Backend: Server (QA mode)",
       "type": "node-terminal",
       "request": "launch",
       "command": "${workspaceFolder}/backend/scripts/runserver.sh",
       "cwd": "${workspaceFolder}"
     },
     {
-      "name": "Run server (--debug)",
+      "name": "Backend: Server (--debug)",
       "type": "node-terminal",
       "request": "launch",
       "command": "${workspaceFolder}/backend/scripts/runserver.sh --debug",
       "cwd": "${workspaceFolder}"
     },
     {
-      "name": "Run server (--test)",
+      "name": "Backend: Server (--test)",
       "type": "node-terminal",
       "request": "launch",
       "command": "${workspaceFolder}/backend/scripts/runserver.sh --test",
       "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Frontend: Server (Vite)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run dev",
+      "cwd": "${workspaceFolder}/frontend"
     },
     {
       "name": "Python: Attach to Django (debugpy)",
@@ -49,8 +56,17 @@
       "serverReadyAction": {
         "pattern": "Local:\\s+http://localhost:([0-9]+)",
         "uriFormat": "http://localhost:%s",
-        "action": "openExternally"
+        "action": "openIntegratedBrowser"
       }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Fullstack: Debug (Backend + Frontend + Firefox)",
+      "configurations": [
+        "Backend: Server (QA mode)",
+        "Frontend: Debug (Vite + Firefox)"
+      ]
     }
   ]
 }
