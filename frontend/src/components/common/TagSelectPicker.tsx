@@ -171,7 +171,7 @@ export default function TagSelectPicker({
                       type="checkbox"
                       checked={isSelected}
                       readOnly
-                      style={{ pointerEvents: 'none', margin: 0, accentColor: 'var(--button-border-color)' }}
+                      style={{ pointerEvents: 'none', margin: 0, accentColor: 'var(--checkbox-accent-color)' }}
                     />
                     <span className="text">{tag.name}</span>
                   </button>

@@ -120,6 +120,8 @@
   --button-border-color: var(--iris);
   --button-text-color: var(--iris);
 
+  --checkbox-accent-color: var(--iris);
+
   --tag-bg-color: var(--iris);
   --tag-font-color: var(--pale-purple);
 
@@ -174,6 +176,8 @@
   --button-bg-color: var(--iris);
   --button-border-color: var(--iris);
   --button-text-color: var(--wisteria);
+
+  --checkbox-accent-color: var(--wisteria);
 
   --tag-bg-color: var(--pale-purple);
   --tag-font-color: var(--iris);
@@ -690,7 +694,7 @@ button > span {
 .pagination .page-link:hover {
   background-color: var(--button-bg-color) !important;
   color: var(--button-text-color) !important;
-  border-color: var(--button-text-color) !important;
+  /* border-color: var(--button-text-color) !important; */
 }
 .pagination .page-item .page-link {
   color: var(--button-text-color) !important;
@@ -700,6 +704,17 @@ button > span {
   background-color: var(--button-bg-color) !important;
   color: var(--button-text-color) !important;
   border: 1px solid var(--button-border-color);
+}
+.pagination > li .page-link {
+  border-radius: 0;
+}
+.pagination > li:first-child .page-link {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+.pagination > li:last-child .page-link {
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
 }
 
 #filter-button {
